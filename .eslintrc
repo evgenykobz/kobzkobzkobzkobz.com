@@ -1,0 +1,46 @@
+{
+  "parser": "@babel/eslint-parser",
+  "extends": [
+    "airbnb",
+    "airbnb/hooks",
+    "plugin:promise/recommended"
+  ],
+  "ignorePatterns": ["dist"],
+  "plugins": ["promise", "import"],
+  "env": {
+    "browser": true
+  },
+  "rules": {
+    "semi": "error",
+    "import/prefer-default-export": "off",
+    "arrow-parens": "off",
+    "consistent-return": "off",
+    "no-param-reassign": "off",
+    "import/order": [
+      "error",
+      {
+        "groups": ["builtin", "external", "internal"],
+        "pathGroups": [
+          {
+            "pattern": "react",
+            "group": "external",
+            "position": "before"
+          }
+        ],
+        "pathGroupsExcludedImportTypes": ["react"],
+        "newlines-between": "always",
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": true
+        }
+      }
+    ]
+  },
+  "settings": {
+    "import/resolver": {
+      "webpack": {
+        "config": ".webpack/config.js"
+      }
+    }
+  }
+}
