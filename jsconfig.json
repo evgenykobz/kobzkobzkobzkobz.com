@@ -5,6 +5,9 @@
     "baseUrl": "./",
     "paths": {
       "components/*": ["src/components/*"],
+      "pages/*": ["src/pages/*"],
+      "assets/*": ["src/assets/*"],
+      "constants/*": ["src/constants/*"],
     }
   },
   "exclude": ["node_modules", "dist"]

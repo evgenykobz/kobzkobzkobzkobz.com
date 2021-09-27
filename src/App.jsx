@@ -1,9 +1,23 @@
 import React from 'react';
 
 import { render } from 'react-dom';
-import { ThemeProvider } from 'styled-components';
+import { ThemeProvider, createGlobalStyle } from 'styled-components';
 
-import { Router } from './router';
+import { Core } from './core';
+
+const GlobalStyle = createGlobalStyle`
+  html {
+    font-family: Inter, sans-serif;
+    font-size: 16px;
+  }
+
+  div#app {
+    min-height: 100vh;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+`;
 
 export const App = () => {
   const theme = {
@@ -12,7 +26,8 @@ export const App = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <Router />
+      <GlobalStyle />
+      <Core />
     </ThemeProvider>
   );
 };

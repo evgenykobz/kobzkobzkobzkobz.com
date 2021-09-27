@@ -1,3 +1,14 @@
 import React from 'react';
 
-export const Header = () => <header>header</header>;
+import LogoImage from 'assets/images/logo.png';
+
+import { HeaderStyled, HeaderLogo } from './Header.styled';
+
+export const Header = () => (
+  <HeaderStyled>
+    <HeaderLogo
+      src={LogoImage}
+      alt="Off-white Swan Logo"
+    />
+  </HeaderStyled>
+);

@@ -2,7 +2,8 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
-const CopyWebpackPlugin = require("copy-webpack-plugin");
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const webpack = require('webpack');
 
 module.exports = {
   context: path.resolve('src'),
@@ -20,6 +21,9 @@ module.exports = {
     modules: ['node_modules'],
     alias: {
       components: path.resolve('src', 'components'),
+      pages: path.resolve('src', 'pages'),
+      assets: path.resolve('src', 'assets'),
+      constants: path.resolve('src', 'constants'),
     },
     extensions: ['.jsx', '.js', '.json']
   },
@@ -27,9 +31,7 @@ module.exports = {
   target: 'web',
   devServer: {
     port: 3000,
-    static: {
-      directory: path.resolve('public'),
-    },
+    static: path.resolve('dist'),
     compress: true,
     historyApiFallback: true,
     hot: true,
@@ -73,6 +75,7 @@ module.exports = {
     new ESLintPlugin({
       context: path.resolve('src'),
     }),
+    new webpack.HotModuleReplacementPlugin({}),
     new CopyWebpackPlugin({
       patterns: [
         path.resolve('public', 'favicons'),
