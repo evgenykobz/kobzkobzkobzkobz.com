@@ -1,13 +1,13 @@
 {
   "compilerOptions": {
-    // "target": "es2020",
     "allowSyntheticDefaultImports": false,
     "baseUrl": "./",
     "paths": {
-      "components/*": ["src/components/*"],
-      "pages/*": ["src/pages/*"],
-      "assets/*": ["src/assets/*"],
-      "constants/*": ["src/constants/*"],
+      "src/core/*": ["src/core/*"],
+      "src/components/*": ["src/components/*"],
+      "src/modules/*": ["src/modules/*"],
+      "src/assets/*": ["src/assets/*"],
+      "src/constants/*": ["src/constants/*"],
     }
   },
   "exclude": ["node_modules", "dist"]

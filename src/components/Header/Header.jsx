@@ -1,6 +1,6 @@
 import React from 'react';
 
-import LogoImage from 'assets/images/logo.png';
+import LogoImage from 'src/assets/images/logo.png';
 
 import { HeaderStyled, HeaderLogo } from './Header.styled';
 

@@ -16,6 +16,7 @@
     "arrow-parens": "off",
     "consistent-return": "off",
     "no-param-reassign": "off",
+    "import/no-cycle": "off",
     "import/order": [
       "error",
       {

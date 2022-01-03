@@ -9,7 +9,7 @@ module.exports = {
   context: path.resolve('src'),
   entry: {
     main: {
-      import: path.resolve('src', 'App.jsx'),
+      import: path.resolve('src', 'index.jsx'),
     },
   },
   output: {
@@ -20,17 +20,18 @@ module.exports = {
   resolve: {
     modules: ['node_modules'],
     alias: {
-      components: path.resolve('src', 'components'),
-      pages: path.resolve('src', 'pages'),
-      assets: path.resolve('src', 'assets'),
-      constants: path.resolve('src', 'constants'),
+      'src/core': path.resolve('src', 'core'),
+      'src/components': path.resolve('src', 'components'),
+      'src/modules': path.resolve('src', 'modules'),
+      'src/assets': path.resolve('src', 'assets'),
+      'src/constants': path.resolve('src', 'constants'),
     },
     extensions: ['.jsx', '.js', '.json']
   },
   devtool: 'source-map',
   target: 'web',
   devServer: {
-    port: 3000,
+    port: 8888,
     static: path.resolve('dist'),
     compress: true,
     historyApiFallback: true,
@@ -75,7 +76,6 @@ module.exports = {
     new ESLintPlugin({
       context: path.resolve('src'),
     }),
-    new webpack.HotModuleReplacementPlugin({}),
     new CopyWebpackPlugin({
       patterns: [
         path.resolve('public', 'favicons'),

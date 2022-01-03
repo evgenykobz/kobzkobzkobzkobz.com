@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { defaultPadding } from 'constants';
+import { defaultPadding } from 'src/constants';
 
 export const HeaderStyled = styled.header`
   padding-left: ${defaultPadding}px;

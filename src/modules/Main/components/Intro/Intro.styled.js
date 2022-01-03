@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { defaultPadding, blackFontColour } from 'constants';
+import { defaultPadding, blackFontColour } from 'src/constants';
 
 export const SectionStyled = styled.section``;
 
