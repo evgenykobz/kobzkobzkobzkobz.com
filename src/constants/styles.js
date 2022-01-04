@@ -4,6 +4,10 @@ export const defaultPadding = 18;
 
 export const blackFontColour = (opacity = 100) => `rgba(51, 51, 51, ${opacity}%)`;
 
+export const offwhiteBackgroundColour = '#f5f5f5';
+
+export const whiteColour = 'white';
+
 export const GlobalStyle = createGlobalStyle`
   html, body {
     font-family: Inter, sans-serif;
@@ -12,7 +16,6 @@ export const GlobalStyle = createGlobalStyle`
 
   div#app {
     min-height: 100vh;
-    position: relative;
     display: flex;
     flex-direction: column;
   }

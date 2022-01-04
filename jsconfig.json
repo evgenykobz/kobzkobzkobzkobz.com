@@ -8,6 +8,7 @@
       "src/modules/*": ["src/modules/*"],
       "src/assets/*": ["src/assets/*"],
       "src/constants/*": ["src/constants/*"],
+      "src/utils/*": ["src/utils/*"],
     }
   },
   "exclude": ["node_modules", "dist"]

@@ -6,7 +6,8 @@ import {
   Route,
 } from 'react-router-dom';
 
-import { BoardModule } from 'src/modules';
+import { NotFound } from 'src/components/NotFound';
+import { BoardModule, MainModule } from 'src/modules';
 
 import { App } from '../App';
 
@@ -14,10 +15,12 @@ export const Router = () => (
   <BrowserRouter>
     <Routes>
       <Route
-        index
+        path="/"
         element={<App />}
       >
-        <Route path="/board" element={<BoardModule />} />
+        <Route index element={<MainModule />} />
+        <Route path="board/*" element={<BoardModule />} />
+        <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>
 

@@ -5,16 +5,29 @@ import { ThemeProvider } from 'styled-components';
 
 import { Header, Menu, Footer } from 'src/components';
 import { GlobalStyle } from 'src/constants/styles';
+import { ScrollProvider } from 'src/modules';
+
+import { ContentContainer, AppContainerStyled } from './App.styled';
 
 export const App = () => (
   <ThemeProvider theme={{
     name: 'white',
   }}
   >
-    <GlobalStyle />
-    <Header />
-    <Menu />
-    <Outlet />
-    <Footer />
+    <ScrollProvider>
+      <AppContainerStyled>
+        <GlobalStyle />
+
+        <Header />
+
+        <Menu />
+
+        <ContentContainer>
+          <Outlet />
+        </ContentContainer>
+
+        <Footer />
+      </AppContainerStyled>
+    </ScrollProvider>
   </ThemeProvider>
 );

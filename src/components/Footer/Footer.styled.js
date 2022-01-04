@@ -5,7 +5,7 @@ import { defaultPadding, blackFontColour } from 'src/constants';
 export const FooterStyled = styled.footer`
   display: flex;
   padding-top: 0.5rem;
-  padding-bottom: 1.25rem;
+  padding-bottom: 0.5rem;
   padding-left: ${defaultPadding}px;
   padding-right: ${defaultPadding}px;
 `;
@@ -20,5 +20,6 @@ export const ExternalLink = styled.a`
 export const Sentence = styled.div`
   margin-left: auto;
   font-weight: 600;
+  font-size: .75rem;
   color: ${blackFontColour(50)};
 `;

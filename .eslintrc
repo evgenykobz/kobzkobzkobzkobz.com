@@ -16,6 +16,8 @@
     "arrow-parens": "off",
     "consistent-return": "off",
     "no-param-reassign": "off",
+    "react/prop-types": "off",
+    "react-hooks/exhaustive-deps": "off",
     "import/no-cycle": "off",
     "import/order": [
       "error",

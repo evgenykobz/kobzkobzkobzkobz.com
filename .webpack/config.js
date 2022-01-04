@@ -5,6 +5,8 @@ const ESLintPlugin = require('eslint-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const webpack = require('webpack');
 
+const dev = process.env.NODE_ENV !== 'production';
+
 module.exports = {
   context: path.resolve('src'),
   entry: {
@@ -25,6 +27,7 @@ module.exports = {
       'src/modules': path.resolve('src', 'modules'),
       'src/assets': path.resolve('src', 'assets'),
       'src/constants': path.resolve('src', 'constants'),
+      'src/utils': path.resolve('src', 'utils'),
     },
     extensions: ['.jsx', '.js', '.json']
   },
@@ -62,7 +65,17 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: [MiniCssExtractPlugin.loader, 'css-loader'],
+        use: [
+          dev ? 'style-loader' : MiniCssExtractPlugin.loader,
+          {
+            loader: 'css-loader',
+            options: {
+              modules: {
+                localIdentName: '[hash:base64]',
+              },
+            },
+          },
+        ],
       },
     ],
   },
