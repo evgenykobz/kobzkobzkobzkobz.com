@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    "allowSyntheticDefaultImports": false,
     "baseUrl": "./",
     "paths": {
       "src/core/*": ["src/core/*"],
@@ -9,7 +8,7 @@
       "src/assets/*": ["src/assets/*"],
       "src/constants/*": ["src/constants/*"],
       "src/utils/*": ["src/utils/*"],
+      "src/hooks/*": ["src/hooks/*"],
     }
   },
-  "exclude": ["node_modules", "dist"]
 }

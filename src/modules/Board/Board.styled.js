@@ -1,5 +1,9 @@
 import styled from 'styled-components';
 
-export const BoardWrapper = styled.div`
-  font-size: 1rem;
+export const BoardStyled = styled.div`
+  scroll-snap-type: y mandatory;
+  max-height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: relative;
 `;

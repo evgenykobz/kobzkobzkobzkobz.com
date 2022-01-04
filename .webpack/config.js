@@ -28,6 +28,7 @@ module.exports = {
       'src/assets': path.resolve('src', 'assets'),
       'src/constants': path.resolve('src', 'constants'),
       'src/utils': path.resolve('src', 'utils'),
+      'src/hooks': path.resolve('src', 'hooks'),
     },
     extensions: ['.jsx', '.js', '.json']
   },

@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 
-import { ScrollContext } from './Scroll';
+import { ScrollContext } from 'src/core';
 
 /**
  * @function useScroll

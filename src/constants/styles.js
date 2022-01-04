@@ -14,9 +14,7 @@ export const GlobalStyle = createGlobalStyle`
     font-size: 16px;
   }
 
-  div#app {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
+  figure {
+    margin: 0;
   }
 `;

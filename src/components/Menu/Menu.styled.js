@@ -8,4 +8,5 @@ export const MenuStyled = styled.nav`
   right: ${defaultPadding};
   border: 2px solid black;
   display: flex;
+  z-index: 1;
 `;

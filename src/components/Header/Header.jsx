@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 
 import LogoImage from 'src/assets/images/logo.png';
-import { useScroll } from 'src/modules';
+import { useScroll } from 'src/hooks';
 import { easeOutCubic, interpolate } from 'src/utils/math';
 
 import { HeaderStyled, HeaderLogo, HeaderBackground } from './Header.styled';
 
-const INITIAL_WIDTH = 200;
+const INITIAL_WIDTH = 150;
 const TARGET_WIDTH = 100;
 const TARGET_SCROLL = 100;
 const INITIAL_OPACITY = 0;
@@ -24,9 +24,7 @@ export const Header = () => {
     }
 
     const width = interpolate(INITIAL_WIDTH, TARGET_WIDTH, easeOutCubic(scroll / TARGET_SCROLL));
-    const opacity = interpolate(
-      INITIAL_OPACITY, TARGET_OPACITY, easeOutCubic(scroll / TARGET_SCROLL),
-    );
+    const opacity = interpolate(INITIAL_OPACITY, TARGET_OPACITY, easeOutCubic(scroll / TARGET_SCROLL));
 
     // If width reached either MIN or MAX value, stick to it
     const reachedTarget = width <= TARGET_WIDTH;
@@ -44,8 +42,13 @@ export const Header = () => {
       return;
     }
 
-    setLogoWidth(`${width}px`);
-    setOpacity(opacity);
+    if (!Number.isNaN(width)) {
+      setLogoWidth(`${width}px`);
+    }
+
+    if (!Number.isNaN(opacity)) {
+      setOpacity(opacity);
+    }
   }, [scroll]);
 
   return (

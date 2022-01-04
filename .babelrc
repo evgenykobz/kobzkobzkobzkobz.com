@@ -1,6 +1,6 @@
 {
   "presets": ["airbnb"],
   "plugins": [["babel-plugin-styled-components", {
-    "displayName": false
+    "displayName": true
   }]]
 }
