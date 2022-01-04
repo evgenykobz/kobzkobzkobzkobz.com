@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 
-import { defaultPadding, blackFontColour } from 'src/constants';
+import { blackFontColour } from 'src/constants';
 
 export const SectionStyled = styled.section``;
 
 export const Text = styled.div`
-  padding-left: ${defaultPadding}px;
-  padding-right: ${defaultPadding}px;
+  padding-left: 2rem;
+  padding-right: 2rem;
   font-weight: 500;
   font-size: 1.5rem;
   line-height: 2rem;
@@ -16,7 +16,7 @@ export const Text = styled.div`
 
 export const Paragraph = styled.div`
   &:not(:last-child) {
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
   }
 `;
 

@@ -6,8 +6,8 @@ export const FooterStyled = styled.footer`
   display: flex;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
-  padding-left: ${defaultPadding}px;
-  padding-right: ${defaultPadding}px;
+  padding-left: ${defaultPadding};
+  padding-right: ${defaultPadding};
 `;
 
 export const ExternalLink = styled.a`

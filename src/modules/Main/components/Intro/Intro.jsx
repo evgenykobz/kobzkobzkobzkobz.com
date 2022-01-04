@@ -17,19 +17,17 @@ export const Intro = () => (
       <Paragraph>
         <Sentence>{textBlocks.sentence4}</Sentence>
         <Sentence>{textBlocks.sentence5}</Sentence>
-        <Sentence>{textBlocks.sentence6}</Sentence>
       </Paragraph>
 
       <Paragraph>
+        <Sentence>{textBlocks.sentence6}</Sentence>
         <Sentence>{textBlocks.sentence7}</Sentence>
+      </Paragraph>
+
+      <Paragraph>
         <Sentence>{textBlocks.sentence8}</Sentence>
         <Sentence>{textBlocks.sentence9}</Sentence>
-      </Paragraph>
-
-      <Paragraph>
         <Sentence>{textBlocks.sentence10}</Sentence>
-        <Sentence>{textBlocks.sentence11}</Sentence>
-        <Sentence>{textBlocks.sentence12}</Sentence>
       </Paragraph>
     </Text>
 

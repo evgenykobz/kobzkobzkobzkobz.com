@@ -1,6 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 
-export const defaultPadding = 18;
+export const defaultPadding = '1rem';
 
 export const blackFontColour = (opacity = 100) => `rgba(51, 51, 51, ${opacity}%)`;
 
