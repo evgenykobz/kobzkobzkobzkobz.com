@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "baseUrl": "./",
+    "moduleResolution": "Node",
     "paths": {
       "src/core/*": ["src/core/*"],
       "src/components/*": ["src/components/*"],
@@ -11,4 +12,5 @@
       "src/hooks/*": ["src/hooks/*"],
     }
   },
+  "include": ["src"],
 }

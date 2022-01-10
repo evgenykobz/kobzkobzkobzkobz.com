@@ -1,12 +1,23 @@
-import React, { useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 
-import { useInteraction } from 'src/hooks';
+import { useInteraction, useScroll } from 'src/hooks';
 
 import { BoardStyled } from './Board.styled';
 import { PictureFrame } from './components/PictureFrame';
 
 export const BoardModule = () => {
   const { entries } = useInteraction();
+  const { setScrollableContainer } = useScroll();
+
+  // We use Board Ref to set a new scrollable container
+  // so Header can behave normally
+  const boardRef = useCallback((node) => {
+    if (!node) {
+      return;
+    }
+
+    setScrollableContainer(node);
+  }, [setScrollableContainer]);
 
   const activePictureFrame = useMemo(() => {
     if (!entries.length) {
@@ -35,7 +46,7 @@ export const BoardModule = () => {
   }, [entries]);
 
   return (
-    <BoardStyled>
+    <BoardStyled ref={boardRef}>
       {[1, 2, 3].map(key => (
         <PictureFrame
           caption={key}

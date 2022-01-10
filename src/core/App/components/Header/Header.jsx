@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, createContext } from 'react';
 
 import LogoImage from 'src/assets/images/logo.png';
-import { useScroll } from 'src/hooks';
+import { useHeaderSize, useScroll } from 'src/hooks';
 import { easeOutCubic, interpolate } from 'src/utils/math';
 
-import { HeaderStyled, HeaderLogo, HeaderBackground } from './Header.styled';
+import {
+  HeaderStyled, HeaderLogo, HeaderBackground,
+} from './Header.styled';
 
 const INITIAL_WIDTH = 150;
 const TARGET_WIDTH = 100;
@@ -12,9 +14,25 @@ const TARGET_SCROLL = 100;
 const INITIAL_OPACITY = 0;
 const TARGET_OPACITY = 0.75;
 
+export const HEADER_CONTEXT_DEFAULT_VALUE = {
+  size: INITIAL_WIDTH,
+  setSize: () => {},
+};
+
+/**
+ * @name HeaderContext
+ * Header Context
+ */
+export const HeaderContext = createContext(HEADER_CONTEXT_DEFAULT_VALUE);
+
+/**
+ * @function Header
+ * Smart Header Component that sets its opacity and size using scroll data
+ * It also saves header size data to Header Context via useHeaderSize hook
+ */
 export const Header = () => {
-  const scroll = useScroll();
-  const [logoWidth, setLogoWidth] = useState(`${INITIAL_WIDTH}px`);
+  const { scroll } = useScroll();
+  const { size, setSize } = useHeaderSize();
   const [headerOpacity, setOpacity] = useState(INITIAL_OPACITY);
 
   useEffect(() => {
@@ -31,19 +49,19 @@ export const Header = () => {
     const reachedInitial = width >= INITIAL_WIDTH;
 
     if (reachedTarget) {
-      setLogoWidth(`${TARGET_WIDTH}px`);
+      setSize(TARGET_WIDTH);
       setOpacity(TARGET_OPACITY);
       return;
     }
 
     if (reachedInitial) {
-      setLogoWidth(`${INITIAL_WIDTH}px`);
+      setSize(INITIAL_WIDTH);
       setOpacity(INITIAL_OPACITY);
       return;
     }
 
     if (!Number.isNaN(width)) {
-      setLogoWidth(`${width}px`);
+      setSize(width);
     }
 
     if (!Number.isNaN(opacity)) {
@@ -58,7 +76,7 @@ export const Header = () => {
         src={LogoImage}
         alt="Off-white Swan Logo"
         style={{
-          width: logoWidth,
+          width: `${size}px`,
         }}
       />
     </HeaderStyled>

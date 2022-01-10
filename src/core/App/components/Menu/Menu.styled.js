@@ -1,11 +1,7 @@
 import styled from 'styled-components';
 
-import { defaultPadding } from 'src/constants';
-
 export const MenuStyled = styled.nav`
-  position: absolute;
-  bottom: ${defaultPadding};
-  right: ${defaultPadding};
+  width: 100%;
   border: 2px solid black;
   display: flex;
   z-index: 1;

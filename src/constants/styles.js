@@ -14,6 +14,12 @@ export const GlobalStyle = createGlobalStyle`
     font-size: 16px;
   }
 
+  div#app {
+    overflow-y: hidden;
+    height: 100vh;
+    width: 100vw;
+  }
+
   figure {
     margin: 0;
   }

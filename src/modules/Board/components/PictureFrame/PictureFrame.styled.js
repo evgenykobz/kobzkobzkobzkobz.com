@@ -5,7 +5,6 @@ import { defaultPadding } from 'src/constants/styles';
 export const PictureFrameStyled = styled.figure`
   scroll-snap-align: start;
   height: 100vh;
-  width: 100%;
 `;
 
 export const FrameImage = styled.img`

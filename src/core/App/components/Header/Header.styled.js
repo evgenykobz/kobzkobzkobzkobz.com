@@ -18,3 +18,5 @@ export const HeaderBackground = styled.div`
 `;
 
 export const HeaderLogo = styled.img``;
+
+export const ContentContainer = styled.div``;

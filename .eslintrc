@@ -8,7 +8,8 @@
   "ignorePatterns": ["dist"],
   "plugins": ["promise", "import"],
   "env": {
-    "browser": true
+    "browser": true,
+    "commonjs": true
   },
   "rules": {
     "semi": "error",
