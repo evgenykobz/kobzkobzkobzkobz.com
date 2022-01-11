@@ -1,42 +1,25 @@
-import React, { useEffect, useState, createContext } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import LogoImage from 'src/assets/images/logo.png';
-import { useHeaderSize, useScroll } from 'src/hooks';
 import { easeOutCubic, interpolate } from 'src/utils/math';
 
+import {
+  INITIAL_OPACITY, INITIAL_WIDTH, TARGET_OPACITY, TARGET_SCROLL, TARGET_WIDTH,
+} from './Header.constants';
 import {
   HeaderStyled, HeaderLogo, HeaderBackground,
 } from './Header.styled';
 
-const INITIAL_WIDTH = 150;
-const TARGET_WIDTH = 100;
-const TARGET_SCROLL = 100;
-const INITIAL_OPACITY = 0;
-const TARGET_OPACITY = 0.75;
-
-export const HEADER_CONTEXT_DEFAULT_VALUE = {
-  size: INITIAL_WIDTH,
-  setSize: () => {},
-};
-
-/**
- * @name HeaderContext
- * Header Context
- */
-export const HeaderContext = createContext(HEADER_CONTEXT_DEFAULT_VALUE);
-
 /**
  * @function Header
- * Smart Header Component that sets its opacity and size using scroll data
- * It also saves header size data to Header Context via useHeaderSize hook
+ * @description Smart Header Component that sets its opacity and size using scroll data.
+ * @note Accepts size in props, can trigger "onSizeChange" handler
  */
-export const Header = () => {
-  const { scroll } = useScroll();
-  const { size, setSize } = useHeaderSize();
+export const Header = ({ scroll, size, onSizeChange }) => {
   const [headerOpacity, setOpacity] = useState(INITIAL_OPACITY);
 
   useEffect(() => {
-    // Do not update width if scroll is NaN
+    // Do not update width if scroll position is NaN
     if (Number.isNaN(scroll)) {
       return;
     }
@@ -44,24 +27,24 @@ export const Header = () => {
     const width = interpolate(INITIAL_WIDTH, TARGET_WIDTH, easeOutCubic(scroll / TARGET_SCROLL));
     const opacity = interpolate(INITIAL_OPACITY, TARGET_OPACITY, easeOutCubic(scroll / TARGET_SCROLL));
 
-    // If width reached either MIN or MAX value, stick to it
+    // If width has reached either MIN or MAX value, stick to it
     const reachedTarget = width <= TARGET_WIDTH;
     const reachedInitial = width >= INITIAL_WIDTH;
 
     if (reachedTarget) {
-      setSize(TARGET_WIDTH);
+      onSizeChange(TARGET_WIDTH);
       setOpacity(TARGET_OPACITY);
       return;
     }
 
     if (reachedInitial) {
-      setSize(INITIAL_WIDTH);
+      onSizeChange(INITIAL_WIDTH);
       setOpacity(INITIAL_OPACITY);
       return;
     }
 
     if (!Number.isNaN(width)) {
-      setSize(width);
+      onSizeChange(width);
     }
 
     if (!Number.isNaN(opacity)) {

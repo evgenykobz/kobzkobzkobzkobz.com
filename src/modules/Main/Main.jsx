@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
-import { useHeaderSize } from 'src/hooks';
+import { HeaderContext } from 'src/core/App/components';
 
 import { Intro } from './components/Intro';
 import { MainStyled } from './Main.styled';
 
 export const MainModule = () => {
-  const { size } = useHeaderSize();
+  const { size } = useContext(HeaderContext);
 
   return (
     <MainStyled style={{ paddingTop: `${size}px` }}>

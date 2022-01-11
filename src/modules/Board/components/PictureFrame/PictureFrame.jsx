@@ -1,13 +1,13 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 
-import { useInteraction } from 'src/hooks';
+import { InteractionContext } from 'src/core/UserMotion';
 
 import { PictureFrameStyled, FrameImage, FrameCaption } from './PictureFrame.styled';
 
 export const PictureFrame = ({
   source, alt, caption, active,
 }) => {
-  const interaction = useInteraction();
+  const interaction = useContext(InteractionContext);
   const frameRef = useRef();
 
   useEffect(() => {

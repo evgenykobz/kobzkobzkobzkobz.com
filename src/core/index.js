@@ -1,3 +1,3 @@
 export * from './App';
 export * from './Router';
-export * from './Interaction';
+export * from './UserMotion';

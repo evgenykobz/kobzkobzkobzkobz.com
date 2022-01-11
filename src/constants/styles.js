@@ -15,10 +15,15 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   div#app {
-    overflow-y: hidden;
-    height: 100vh;
-    width: 100vw;
+    position: relative;
   }
+
+  ${({ theme }) => theme.blockScreen && `body {
+    overflow-x: hidden;
+    overflow-y: hidden;
+    width: 100%;
+    height: 100%;
+  }`}
 
   figure {
     margin: 0;

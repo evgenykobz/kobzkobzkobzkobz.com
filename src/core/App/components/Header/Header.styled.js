@@ -10,6 +10,7 @@ export const HeaderStyled = styled.header`
 `;
 
 export const HeaderBackground = styled.div`
+  will-change: opacity;
   background: rgb(255,255,255);
   background: linear-gradient(180deg, rgba(255,255,255,.75) 0%, rgba(255,255,255,0.15) 75%, rgba(255,255,255,0) 100%);
   width: 100%;
@@ -17,6 +18,8 @@ export const HeaderBackground = styled.div`
   position: absolute;
 `;
 
-export const HeaderLogo = styled.img``;
+export const HeaderLogo = styled.img`
+  will-change: width;
+`;
 
 export const ContentContainer = styled.div``;

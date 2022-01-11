@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const InteractionContainer = styled.main`
+export const AppContainer = styled.main`
   position: relative;
   height: 100%;
   width: 100%;

@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import { breakpointRules } from 'src/constants';
 
 export const MainStyled = styled.div`
+  will-change: padding-top;
+
   @media screen and (min-width: ${breakpointRules.tablet}px) {
     width: 75%;
     margin-left: auto;

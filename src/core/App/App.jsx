@@ -1,26 +1,41 @@
-import React from 'react';
+import React, { useCallback, useRef } from 'react';
 
 import { Outlet } from 'react-router-dom';
-import { ThemeProvider } from 'styled-components';
 
 import { GlobalStyle } from 'src/constants/styles';
 
-import { InteractionProvider } from '../Interaction';
-import { Header, Menu } from './components';
+import { ThemeProvider } from '../Theme';
+import { InteractionProvider, ScrollProvider } from '../UserMotion';
+import { AppContainer } from './App.styled';
+import { FrankensteinHeadProvider, Menu } from './components';
 
-export const App = () => (
-  <ThemeProvider theme={{
-    name: 'white',
-  }}
-  >
-    <InteractionProvider>
+export const App = () => {
+  const observableElementRef = useRef();
+
+  // Callback being run at app start to supply refs with initial values
+  const appContainerCallback = useCallback((node) => {
+    if (!node) {
+      return;
+    }
+
+    observableElementRef.current = node;
+  }, []);
+
+  return (
+    <ThemeProvider>
       <GlobalStyle />
 
-      <Header />
+      <AppContainer ref={appContainerCallback}>
+        <InteractionProvider observableElement={observableElementRef}>
+          <ScrollProvider>
+            <FrankensteinHeadProvider>
+              <Outlet />
+            </FrankensteinHeadProvider>
+          </ScrollProvider>
+        </InteractionProvider>
+      </AppContainer>
 
-      <Outlet />
-    </InteractionProvider>
-
-    <Menu />
-  </ThemeProvider>
-);
+      <Menu />
+    </ThemeProvider>
+  );
+};

@@ -15,6 +15,7 @@ export const FrameImage = styled.img`
 `;
 
 export const FrameCaption = styled.figcaption`
+  will-change: opacity;
   padding: ${defaultPadding};
   font-size: 0.75rem;
   position: fixed;
