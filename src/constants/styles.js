@@ -3,8 +3,9 @@ import { createGlobalStyle } from 'styled-components';
 export const defaultPadding = '1rem';
 
 export const blackFontColour = (opacity = 100) => `rgba(51, 51, 51, ${opacity}%)`;
-
-export const offwhiteBackgroundColour = '#f5f5f5';
+export const ivoryBlackColour = '#231F20';
+export const titaniumWhiteColour = '#F3F4F7';
+export const offwhiteBackgroundColour = '#F5F5F5';
 
 export const whiteColour = 'white';
 

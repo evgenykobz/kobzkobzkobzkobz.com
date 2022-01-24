@@ -1,121 +1,112 @@
 import React, {
-  useEffect, useMemo, useRef, useState,
+  useContext, useEffect, useRef, useState,
 } from 'react';
 
-import { MenuStyled } from './Menu.styled';
+import { ThemeContext } from 'styled-components';
 
-const MENU_INITIAL_POSITION = 50;
-const MENU_TARGET_POSITION = 300;
-const TOUCH_INITIAL_VALUE = 0;
-const TOUCH_TARGET_VALUE = 200;
+import { ResizeContext } from 'src/core/UserMotion';
+
+import { MenuItem } from './components';
+import {
+  MenuHomeIcon, MenuRoundButton, MenuButtonWrapper, MenuBackground, CloseButtonIcon, MenuNavList,
+} from './Menu.styled';
 
 export const Menu = () => {
-  const menuRef = useRef();
-  const [position, setPosition] = useState(MENU_INITIAL_POSITION);
-  const [initialY, setInitialY] = useState(TOUCH_INITIAL_VALUE);
-  const [currentY, setCurrentY] = useState();
-  const [touchActive, setTouchActive] = useState(false);
+  const menuButtonWrapperRef = useRef();
+  const menuRoundButtonRef = useRef();
+
+  const resizeContext = useContext(ResizeContext);
+
+  const { blockScreen, setBlockScreen } = useContext(ThemeContext);
+
   const [opened, setOpened] = useState(false);
 
-  const deltaY = useMemo(() => {
-    if (Number.isNaN(initialY) || Number.isNaN(currentY)) {
-      return;
-    }
+  // Clicking on background closes the Menu
+  const handleBackgroundClick = () => setOpened(false);
 
-    return currentY - initialY;
-  }, [initialY, currentY]);
+  // Menu Buttons acts as a toggle
+  const handleMenuButtonClick = () => setOpened(!opened);
 
-  const handleTouchStart = ({ pageY }) => {
-    console.log('touchstart: ', pageY);
-    setInitialY(pageY);
-    setTouchActive(true);
-  };
+  // Clicking on Menu Item closes it aswell
+  const handleMenuItemClick = () => setOpened(false);
 
-  const handleTouchEnd = () => {
-    setTouchActive(false);
-  };
-
-  const handleTouchCancel = () => {
-    setTouchActive(false);
-  };
-
-  const handleTouchMove = ({ pageY }) => {
-    console.log('touchmove: ', pageY);
-    setCurrentY(pageY);
-  };
-
+  // Touch events handler
   const handleTouch = (event) => {
-    if (!menuRef.current) {
-      return;
-    }
-    console.log('event: ', event);
-
-    const { target, type } = event;
-
-    if (target !== menuRef.current) {
-      return;
-    }
-
-    switch (type) {
-      case 'touchstart': {
-        return handleTouchStart(event);
-      }
-
-      case 'touchmove': {
-        return handleTouchMove(event);
-      }
-
-      case 'touchcancel': {
-        return handleTouchCancel(event);
-      }
-
-      case 'touchend': {
-        return handleTouchEnd(event);
-      }
-      default: {
-        break;
-      }
+    if (opened) {
+      event.preventDefault();
     }
   };
 
-  useEffect(() => () => {
-    setInitialY(TOUCH_INITIAL_VALUE);
-    setCurrentY();
-  }, [touchActive]);
-
+  // If Menu is opened, we make sure block screen is enabled
   useEffect(() => {
-    if (!deltaY) {
+    if (opened) {
+      setBlockScreen(opened);
+    }
+
+    // We also care about disabling it
+    return () => setBlockScreen(false);
+  }, [opened, blockScreen]);
+
+  // Pressing "Esc" key closes Menu too
+  useEffect(() => {
+    if (!opened || resizeContext.mobile) {
       return;
     }
 
-    console.log('deltaY: ', deltaY);
+    const handleEscapeButtonClick = ({ key }) => {
+      if (key !== 'Escape') {
+        return;
+      }
 
-    if (deltaY < TOUCH_TARGET_VALUE) {
+      setOpened(false);
+    };
+
+    window.addEventListener('keydown', handleEscapeButtonClick);
+
+    return () => window.removeEventListener('keydown', handleEscapeButtonClick);
+  }, [opened, resizeContext.mobile]);
+
+  // We prevent touch events from scrolling the window when menu is opened
+  useEffect(() => {
+    if (!resizeContext.mobile || !resizeContext.tablet) {
       return;
     }
 
-    setPosition(MENU_TARGET_POSITION);
-    setOpened(true);
-  }, [deltaY]);
-
-  useEffect(() => {
     window.addEventListener('touchstart', handleTouch);
     window.addEventListener('touchmove', handleTouch);
-    window.addEventListener('touchend', handleTouch);
     window.addEventListener('touchcancel', handleTouch);
+    window.addEventListener('touchend', handleTouch);
 
     return () => {
       window.removeEventListener('touchstart', handleTouch);
       window.removeEventListener('touchmove', handleTouch);
-      window.removeEventListener('touchend', handleTouch);
       window.removeEventListener('touchcancel', handleTouch);
+      window.removeEventListener('touchend', handleTouch);
     };
-  }, []);
+  }, [resizeContext.mobile, resizeContext.tablet]);
+
+  const buttonHeight = menuButtonWrapperRef.current ? menuButtonWrapperRef.current.getBoundingClientRect().height : 0;
 
   return (
     <>
-      {/* <MenuBackground /> */}
-      <MenuStyled ref={menuRef} style={{ bottom: position }}>menu</MenuStyled>
+      {opened && (
+        <MenuBackground onClick={handleBackgroundClick} />
+      )}
+
+      <MenuButtonWrapper ref={menuButtonWrapperRef} onClick={handleMenuButtonClick}>
+        <MenuRoundButton ref={menuRoundButtonRef} enableHover={resizeContext.laptop || resizeContext.desktop}>
+          <CloseButtonIcon style={{ opacity: opened ? 1 : 0 }} alt="Cross Icon" />
+          <MenuHomeIcon style={{ opacity: !opened ? 1 : 0 }} alt="Home Icon" />
+        </MenuRoundButton>
+
+        {opened && (
+          <MenuNavList buttonHeight={buttonHeight}>
+            <MenuItem onClick={handleMenuItemClick} title="Samples" to="samples" />
+            <MenuItem onClick={handleMenuItemClick} title="Board" to="board" />
+            <MenuItem onClick={handleMenuItemClick} title="Home" to="/" />
+          </MenuNavList>
+        )}
+      </MenuButtonWrapper>
     </>
   );
 };

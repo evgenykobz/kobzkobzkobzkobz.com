@@ -1,42 +1,38 @@
 import React, {
-  useCallback, useContext, useEffect, useMemo,
+  useContext, useEffect, useMemo,
 } from 'react';
 
 import { ThemeContext } from 'styled-components';
 
-import { InteractionContext, ScrollContext } from 'src/core/UserMotion';
+import { HeaderContext } from 'src/core/App/components';
+import { FILL_VARIANTS } from 'src/core/App/components/Header/Header.constants';
+import { IntersectionContext } from 'src/core/UserMotion';
 
 import { BoardStyled } from './Board.styled';
 import { PictureFrame } from './components/PictureFrame';
 
 export const BoardModule = () => {
-  const { entries } = useContext(InteractionContext);
-  const themeContext = useContext(ThemeContext);
-  const { setScrollableElement } = useContext(ScrollContext);
+  const { entries } = useContext(IntersectionContext);
+  const { variant, setVariant } = useContext(HeaderContext);
+  const { setBlockScreen, blockScreen } = useContext(ThemeContext);
+
+  // We also reset scrolling on Body element
+  useEffect(
+    () => () => setBlockScreen(false),
+    [],
+  );
+
+  // (may be deleted later) We set a black variant of the Header
+  // specifically for that module
+  useEffect(() => {
+    setVariant(FILL_VARIANTS.black);
+  }, [variant]);
 
   // We set Body element to a blocked state so we can be sure
   // there are no double scrolls when we scroll our 100vh container
   useEffect(() => {
-    const { blockScreen, setBlockScreen } = themeContext;
-
-    if (blockScreen) {
-      return;
-    }
-
     setBlockScreen(true);
-
-    return () => setBlockScreen(false);
-  }, [themeContext]);
-
-  // We use Board Ref to set a new scrollable container
-  // so Header can behave normally
-  const boardCallback = useCallback((node) => {
-    if (!node) {
-      return;
-    }
-
-    setScrollableElement(node);
-  }, [setScrollableElement]);
+  }, [blockScreen]);
 
   const activePictureFrame = useMemo(() => {
     if (!entries.length) {
@@ -65,7 +61,7 @@ export const BoardModule = () => {
   }, [entries]);
 
   return (
-    <BoardStyled ref={boardCallback}>
+    <BoardStyled>
       {[1, 2, 3].map(key => (
         <PictureFrame
           caption={key}
@@ -73,7 +69,6 @@ export const BoardModule = () => {
           active={activePictureFrame === key}
         />
       ))}
-
     </BoardStyled>
   );
 };

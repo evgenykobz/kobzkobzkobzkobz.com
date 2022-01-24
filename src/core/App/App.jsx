@@ -1,41 +1,26 @@
-import React, { useCallback, useRef } from 'react';
+import React from 'react';
 
 import { Outlet } from 'react-router-dom';
 
 import { GlobalStyle } from 'src/constants/styles';
 
 import { ThemeProvider } from '../Theme';
-import { InteractionProvider, ScrollProvider } from '../UserMotion';
-import { AppContainer } from './App.styled';
+import { IntersectionProvider, ScrollProvider, ResizeProvider } from '../UserMotion';
 import { FrankensteinHeadProvider, Menu } from './components';
 
-export const App = () => {
-  const observableElementRef = useRef();
+export const App = () => (
+  <ThemeProvider>
+    <GlobalStyle />
 
-  // Callback being run at app start to supply refs with initial values
-  const appContainerCallback = useCallback((node) => {
-    if (!node) {
-      return;
-    }
-
-    observableElementRef.current = node;
-  }, []);
-
-  return (
-    <ThemeProvider>
-      <GlobalStyle />
-
-      <AppContainer ref={appContainerCallback}>
-        <InteractionProvider observableElement={observableElementRef}>
-          <ScrollProvider>
-            <FrankensteinHeadProvider>
-              <Outlet />
-            </FrankensteinHeadProvider>
-          </ScrollProvider>
-        </InteractionProvider>
-      </AppContainer>
-
+    <ResizeProvider>
+      <ScrollProvider>
+        <IntersectionProvider>
+          <FrankensteinHeadProvider>
+            <Outlet />
+          </FrankensteinHeadProvider>
+        </IntersectionProvider>
+      </ScrollProvider>
       <Menu />
-    </ThemeProvider>
-  );
-};
+    </ResizeProvider>
+  </ThemeProvider>
+);

@@ -3,9 +3,11 @@ import styled from 'styled-components';
 export const HeaderStyled = styled.header`
   position: fixed;
   top: 0;
+  height: ${({ height }) => `${height}px`};
   width: 100%;
   display: flex;
   justify-content: center;
+  align-items: baseline;
   z-index: 1;
 `;
 
@@ -16,10 +18,6 @@ export const HeaderBackground = styled.div`
   width: 100%;
   height: 100%;
   position: absolute;
-`;
-
-export const HeaderLogo = styled.img`
-  will-change: width;
 `;
 
 export const ContentContainer = styled.div``;

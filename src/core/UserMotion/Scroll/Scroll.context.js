@@ -1,9 +1,6 @@
 import { createContext } from 'react';
 
-export const SCROLL_CONTEXT_DEFAULT_VALUE = {
-  scroll: 0,
-  setScrollableElement: () => {},
-};
+export const SCROLL_CONTEXT_DEFAULT_VALUE = 0;
 
 /**
  * @name ScrollContext

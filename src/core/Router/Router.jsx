@@ -4,9 +4,9 @@ import {
   BrowserRouter,
   Routes,
   Route,
+  Navigate,
 } from 'react-router-dom';
 
-import { NotFound } from 'src/components/NotFound';
 import { BoardModule, MainModule } from 'src/modules';
 
 import { App } from '../App';
@@ -20,7 +20,7 @@ export const Router = () => (
       >
         <Route index element={<MainModule />} />
         <Route path="board/*" element={<BoardModule />} />
-        <Route path="*" element={<NotFound />} />
+        <Route path="*" element={<Navigate to="/" />} />
       </Route>
     </Routes>
 

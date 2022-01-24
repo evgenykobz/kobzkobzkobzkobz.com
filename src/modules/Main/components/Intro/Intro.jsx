@@ -23,12 +23,6 @@ export const Intro = () => (
         <Sentence>{textBlocks.sentence6}</Sentence>
         <Sentence>{textBlocks.sentence7}</Sentence>
       </Paragraph>
-
-      <Paragraph>
-        <Sentence>{textBlocks.sentence8}</Sentence>
-        <Sentence>{textBlocks.sentence9}</Sentence>
-        <Sentence>{textBlocks.sentence10}</Sentence>
-      </Paragraph>
     </Text>
 
     <Image />

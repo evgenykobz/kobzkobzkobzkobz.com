@@ -1,9 +1,10 @@
 import styled from 'styled-components';
 
 import { breakpointRules } from 'src/constants';
+import { INITIAL_WIDTH } from 'src/core/App/components/Header';
 
 export const MainStyled = styled.div`
-  will-change: padding-top;
+  padding-top: ${INITIAL_WIDTH}px;
 
   @media screen and (min-width: ${breakpointRules.tablet}px) {
     width: 75%;

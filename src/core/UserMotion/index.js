@@ -1,2 +1,3 @@
-export * from './InteractionObserver';
+export * from './IntersectionObserver';
 export * from './Scroll';
+export * from './Resize';

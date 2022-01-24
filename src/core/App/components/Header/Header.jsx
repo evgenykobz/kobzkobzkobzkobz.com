@@ -1,13 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, {
+  useEffect, useMemo, useState,
+} from 'react';
 
-import LogoImage from 'src/assets/images/logo.png';
+import { useNavigate } from 'react-router-dom';
+
 import { easeOutCubic, interpolate } from 'src/utils/math';
 
+import { HeaderLogo } from './components';
 import {
-  INITIAL_OPACITY, INITIAL_WIDTH, TARGET_OPACITY, TARGET_SCROLL, TARGET_WIDTH,
+  FILL_VARIANTS, INITIAL_OPACITY, INITIAL_SCALE, INITIAL_WIDTH, TARGET_OPACITY, TARGET_SCALE, TARGET_SCROLL,
 } from './Header.constants';
 import {
-  HeaderStyled, HeaderLogo, HeaderBackground,
+  HeaderStyled, HeaderBackground,
 } from './Header.styled';
 
 /**
@@ -15,53 +19,64 @@ import {
  * @description Smart Header Component that sets its opacity and size using scroll data.
  * @note Accepts size in props, can trigger "onSizeChange" handler
  */
-export const Header = ({ scroll, size, onSizeChange }) => {
-  const [headerOpacity, setOpacity] = useState(INITIAL_OPACITY);
+export const Header = ({
+  scroll, variant, mini,
+}) => {
+  const navigate = useNavigate();
+
+  const [scale, setScale] = useState(INITIAL_SCALE);
+  const [opacity, setOpacity] = useState(INITIAL_OPACITY);
+
+  // Background should be visible only if we deal with long scrolled pages
+  // e.g. if "mini" setting is set to true and/or variant is not default,
+  // then we do not render it
+  const shouldRenderBackground = useMemo(() => {
+    if (mini) {
+      return false;
+    }
+
+    return variant === FILL_VARIANTS.default;
+  }, [variant, mini]);
 
   useEffect(() => {
-    // Do not update width if scroll position is NaN
-    if (Number.isNaN(scroll)) {
-      return;
-    }
-
-    const width = interpolate(INITIAL_WIDTH, TARGET_WIDTH, easeOutCubic(scroll / TARGET_SCROLL));
-    const opacity = interpolate(INITIAL_OPACITY, TARGET_OPACITY, easeOutCubic(scroll / TARGET_SCROLL));
-
-    // If width has reached either MIN or MAX value, stick to it
-    const reachedTarget = width <= TARGET_WIDTH;
-    const reachedInitial = width >= INITIAL_WIDTH;
-
-    if (reachedTarget) {
-      onSizeChange(TARGET_WIDTH);
-      setOpacity(TARGET_OPACITY);
-      return;
-    }
-
-    if (reachedInitial) {
-      onSizeChange(INITIAL_WIDTH);
+    // For "mini" setting we set scale to target value whereas opacity is reset to initial
+    if (mini) {
+      setScale(TARGET_SCALE);
       setOpacity(INITIAL_OPACITY);
       return;
     }
 
-    if (!Number.isNaN(width)) {
-      onSizeChange(width);
+    const currScale = interpolate(INITIAL_SCALE, TARGET_SCALE, easeOutCubic(scroll / TARGET_SCROLL));
+    const currOpacity = interpolate(INITIAL_OPACITY, TARGET_OPACITY, easeOutCubic(scroll / TARGET_SCROLL));
+
+    // If scale has reached either MIN or MAX value, stick to it
+    const reachedTarget = currScale <= TARGET_SCALE;
+    const reachedInitial = currScale >= INITIAL_SCALE;
+
+    // Scale and opacity cannot be above its target values (same applies to initial values)
+    if (reachedTarget) {
+      setOpacity(TARGET_OPACITY);
+      setScale(TARGET_SCALE);
+      return;
     }
 
-    if (!Number.isNaN(opacity)) {
-      setOpacity(opacity);
+    if (reachedInitial) {
+      setOpacity(INITIAL_OPACITY);
+      setScale(INITIAL_SCALE);
+      return;
     }
-  }, [scroll]);
+
+    setScale(currScale);
+    setOpacity(currOpacity);
+  }, [scroll, mini]);
+
+  const handleLogoClick = () => navigate('/');
 
   return (
-    <HeaderStyled>
-      <HeaderBackground style={{ opacity: headerOpacity }} />
-      <HeaderLogo
-        src={LogoImage}
-        alt="Off-white Swan Logo"
-        style={{
-          width: `${size}px`,
-        }}
-      />
+    <HeaderStyled height={INITIAL_WIDTH}>
+      <HeaderBackground style={{ opacity: shouldRenderBackground ? opacity : 0 }} />
+
+      <HeaderLogo scale={scale} variant={variant} onClick={handleLogoClick} />
     </HeaderStyled>
   );
 };

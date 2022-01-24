@@ -1,10 +1,9 @@
 import { createContext } from 'react';
 
-import { INITIAL_WIDTH } from './Header.constants';
-
 export const HEADER_CONTEXT_DEFAULT_VALUE = {
-  size: INITIAL_WIDTH,
-  setSize: () => {},
+  variant: null,
+  setVariant: () => {},
+  mini: false,
 };
 
 /**

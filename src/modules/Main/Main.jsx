@@ -1,15 +1,17 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 
-import { HeaderContext } from 'src/core/App/components';
+import { FILL_VARIANTS, HeaderContext } from 'src/core/App/components';
 
 import { Intro } from './components/Intro';
 import { MainStyled } from './Main.styled';
 
 export const MainModule = () => {
-  const { size } = useContext(HeaderContext);
+  const { setVariant, variant } = useContext(HeaderContext);
+
+  useEffect(() => setVariant(FILL_VARIANTS.default), [variant]);
 
   return (
-    <MainStyled style={{ paddingTop: `${size}px` }}>
+    <MainStyled>
       <Intro />
     </MainStyled>
   );

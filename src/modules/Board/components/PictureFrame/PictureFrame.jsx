@@ -1,17 +1,18 @@
-import React, { useContext, useEffect, useRef } from 'react';
+import React, {
+  useCallback, useContext,
+} from 'react';
 
-import { InteractionContext } from 'src/core/UserMotion';
+import { IntersectionContext } from 'src/core/UserMotion';
 
 import { PictureFrameStyled, FrameImage, FrameCaption } from './PictureFrame.styled';
 
 export const PictureFrame = ({
   source, alt, caption, active,
 }) => {
-  const interaction = useContext(InteractionContext);
-  const frameRef = useRef();
+  const interaction = useContext(IntersectionContext);
 
-  useEffect(() => {
-    if (!frameRef.current) {
+  const frameRef = useCallback((node) => {
+    if (!node) {
       return;
     }
 
@@ -21,8 +22,8 @@ export const PictureFrame = ({
       return;
     }
 
-    observer.observe(frameRef.current);
-  }, [frameRef.current, interaction]);
+    observer.observe(node);
+  }, [interaction.observer]);
 
   const captionOpacity = active ? 1 : 0;
 
