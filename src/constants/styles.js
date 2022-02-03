@@ -29,4 +29,8 @@ export const GlobalStyle = createGlobalStyle`
   figure {
     margin: 0;
   }
+
+  button {
+    font-family: Inter, sans-serif;
+  }
 `;
