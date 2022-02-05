@@ -2,6 +2,6 @@ import React from 'react';
 
 import { render } from 'react-dom';
 
-import { Router } from 'src/core';
+import { App } from 'src/core';
 
-render(<Router />, document.getElementById('app'));
+render(<App />, document.getElementById('app'));

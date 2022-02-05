@@ -1,7 +1,5 @@
 import styled from 'styled-components';
 
-import { breakpointRules } from 'src/constants';
-
 import { DEFAULT_COLOR } from './Button.constants';
 
 export const ButtonStyled = styled.a`
@@ -27,10 +25,5 @@ export const ButtonStyled = styled.a`
 
   &:focus, :active {
     transform: scale(0.95);
-  }
-
-  @media screen and (min-width: ${breakpointRules.laptop}px) {
-    font-size: 1rem;
-    padding: 0.75rem;
   }
 `;

@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react';
 
 import { FILL_VARIANTS, HeaderContext } from 'src/core/App/components';
 
-import { Intro } from './components/Intro';
+import { Statement, Verse } from './components';
 import { ButtonWrapper, MainStyled, SectionButton } from './Main.styled';
 
 export const MainModule = () => {
@@ -12,7 +12,9 @@ export const MainModule = () => {
 
   return (
     <MainStyled>
-      <Intro />
+      <Verse />
+
+      <Statement />
 
       <ButtonWrapper>
         <SectionButton>View Samples</SectionButton>

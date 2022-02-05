@@ -5,7 +5,7 @@ import { breakpointRules, defaultPadding } from 'src/constants';
 import { INITIAL_WIDTH } from 'src/core/App/components/Header';
 
 export const MainStyled = styled.div`
-  padding-top: calc(${INITIAL_WIDTH}px + 25vh);
+  padding-top: calc(${INITIAL_WIDTH}px + 5rem);
   padding-bottom: ${defaultPadding};
 
   @media screen and (min-width: ${breakpointRules.tablet}px) {
