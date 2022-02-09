@@ -1,7 +1,9 @@
 {
   "compilerOptions": {
     "baseUrl": "./",
-    "moduleResolution": "Node",
+    "module": "CommonJS",
+    "target": "ES6",
+    "moduleResolution": "Classic",
     "paths": {
       "src/core/*": ["src/core/*"],
       "src/components/*": ["src/components/*"],
@@ -12,5 +14,6 @@
       "src/hooks/*": ["src/hooks/*"],
     }
   },
-  "include": ["src"],
+  "exclude": ["node_modules", "dist", "public"],
+  "include": ["src/**/*"]
 }

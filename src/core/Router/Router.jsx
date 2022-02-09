@@ -4,8 +4,10 @@ import {
   Routes,
   Route,
   Navigate,
+  Outlet,
 } from 'react-router-dom';
 
+import { PageWrapper } from 'src/components';
 import {
   BoardModule, MainModule, VaultModule, SamplesModule,
 } from 'src/modules';
@@ -15,10 +17,12 @@ export const Router = () => (
     <Route
       path="/"
     >
-      <Route index element={<MainModule />} />
+      <Route element={<PageWrapper><Outlet /></PageWrapper>}>
+        <Route index element={<MainModule />} />
+        <Route path="vault/*" element={<VaultModule />} />
+        <Route path="samples/*" element={<SamplesModule />} />
+      </Route>
       <Route path="board/*" element={<BoardModule />} />
-      <Route path="vault/*" element={<VaultModule />} />
-      <Route path="samples/*" element={<SamplesModule />} />
       <Route path="*" element={<Navigate to="/" />} />
     </Route>
   </Routes>

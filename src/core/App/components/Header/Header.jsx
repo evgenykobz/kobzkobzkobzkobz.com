@@ -2,7 +2,7 @@ import React, {
   useEffect, useMemo, useState,
 } from 'react';
 
-import { useNavigate } from 'react-router-dom';
+import { useMatch, useNavigate } from 'react-router-dom';
 
 import { easeOutCubic, interpolate } from 'src/utils/math';
 
@@ -23,6 +23,7 @@ export const Header = ({
   scroll, variant, mini,
 }) => {
   const navigate = useNavigate();
+  const matchesMainPage = useMatch('/');
 
   const [scale, setScale] = useState(INITIAL_SCALE);
   const [opacity, setOpacity] = useState(INITIAL_OPACITY);
@@ -70,7 +71,14 @@ export const Header = ({
     setOpacity(currOpacity);
   }, [scroll, mini]);
 
-  const handleLogoClick = () => navigate('/');
+  const handleLogoClick = () => {
+    if (matchesMainPage) {
+      window.scrollTo(0, 0);
+      return;
+    }
+
+    navigate('/');
+  };
 
   return (
     <HeaderStyled height={INITIAL_WIDTH}>

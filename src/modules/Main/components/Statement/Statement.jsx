@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {
-  StatementStyled, Paragraph, TextButton,
+  StatementStyled, Paragraph, TextButton, CursiveText,
 } from './Statement.styled';
 
 export const Statement = () => (
@@ -26,8 +26,12 @@ export const Statement = () => (
       &nbsp;
       <TextButton to="samples">Samples</TextButton>
       &nbsp;
-      studies the condition of nostalgia in the digital era.&nbsp;
-      It embodies my attitude to the concept of personal in the post-capitalist digital society.
+      studies the condition of
+      &nbsp;
+      <CursiveText>memorabilia-ness</CursiveText>
+      &nbsp;
+      in the post-capitalistic society.&nbsp;
+      With this series I explore how digital reconstruction can overcome photography and text and express what goes beyond nostalgia.&nbsp;
     </Paragraph>
   </StatementStyled>
 );

@@ -1,5 +1,7 @@
 import { createGlobalStyle } from 'styled-components';
 
+import { breakpointRules } from './breakpoints';
+
 export const defaultPadding = '1rem';
 
 export const blackFontColour = (opacity = 100) => `rgba(51, 51, 51, ${opacity}%)`;
@@ -13,6 +15,7 @@ export const GlobalStyle = createGlobalStyle`
   html, body {
     font-family: Inter, sans-serif;
     font-size: 16px;
+    color: ${ivoryBlackColour};
   }
 
   div#app {
@@ -32,5 +35,13 @@ export const GlobalStyle = createGlobalStyle`
 
   button {
     font-family: Inter, sans-serif;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+
+    @media screen and (min-width: ${breakpointRules.tablet}px) {
+      font-size: 2rem;
+    }
   }
 `;
