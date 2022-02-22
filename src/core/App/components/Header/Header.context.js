@@ -3,6 +3,7 @@ import { createContext } from 'react';
 export const HEADER_CONTEXT_DEFAULT_VALUE = {
   variant: null,
   setVariant: () => {},
+  setMini: () => {},
   mini: false,
 };
 

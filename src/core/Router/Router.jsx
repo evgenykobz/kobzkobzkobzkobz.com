@@ -20,8 +20,9 @@ export const Router = () => (
       <Route element={<PageWrapper><Outlet /></PageWrapper>}>
         <Route index element={<MainModule />} />
         <Route path="vault/*" element={<VaultModule />} />
-        <Route path="samples/*" element={<SamplesModule />} />
       </Route>
+
+      <Route path="samples/*" element={<SamplesModule />} />
       <Route path="board/*" element={<BoardModule />} />
       <Route path="*" element={<Navigate to="/" />} />
     </Route>

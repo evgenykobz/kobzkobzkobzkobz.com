@@ -2,8 +2,6 @@ import React, {
   useContext, useEffect, useMemo, useState,
 } from 'react';
 
-import { ThemeContext } from 'styled-components';
-
 import { ScrollContext } from '../../../UserMotion/Scroll/Scroll.context';
 import { Header } from './Header';
 import { FILL_VARIANTS } from './Header.constants';
@@ -17,7 +15,6 @@ import { HeaderContext } from './Header.context';
  */
 export const FrankensteinHeadProvider = ({ children: body }) => {
   const scroll = useContext(ScrollContext);
-  const { blockScreen } = useContext(ThemeContext);
 
   const [variant, setVariant] = useState();
   const [mini, setMini] = useState();
@@ -27,13 +24,11 @@ export const FrankensteinHeadProvider = ({ children: body }) => {
     variant,
     mini,
     setVariant,
+    setMini,
   }), [variant, mini]);
 
   // Smooth out the logo to look cooler!
   useEffect(() => setTimeout(() => setVariant(FILL_VARIANTS.default), 75), []);
-
-  // If "blockScreen" setting is applied, set "mini" to true
-  useEffect(() => setMini(blockScreen), [blockScreen]);
 
   return (
     <HeaderContext.Provider value={headerContext}>
