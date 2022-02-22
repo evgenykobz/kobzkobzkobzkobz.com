@@ -132,48 +132,52 @@ export const TracesSamplePage = () => {
     gltfLoader.setDRACOLoader(dracoLoader);
 
     gltfLoader.load(Model, (instance) => {
-      const model = instance.scene;
-      model.position.set(0, 0, 0);
-      model.scale.set(1, 1, 1);
-      scene.add(model);
+      try {
+        const model = instance.scene;
+        model.position.set(0, 0, 0);
+        model.scale.set(1, 1, 1);
+        scene.add(model);
 
-      const spotLight = new SpotLight(0xffffff);
-      spotLight.distance = 5;
-      spotLight.intensity = 0.7;
-      spotLight.angle = 0.15;
-      spotLight.penumbra = 0.25;
-      spotLight.decay = 1;
-      spotLight.position.set(1.75, 2.85, 0.75);
-      spotLight.target.position.set(-5, 1, 0);
-      spotLight.target.updateMatrixWorld();
-      scene.add(spotLight);
+        const spotLight = new SpotLight(0xffffff);
+        spotLight.distance = 5;
+        spotLight.intensity = 0.7;
+        spotLight.angle = 0.15;
+        spotLight.penumbra = 0.25;
+        spotLight.decay = 1;
+        spotLight.position.set(1.75, 2.85, 0.75);
+        spotLight.target.position.set(-5, 1, 0);
+        spotLight.target.updateMatrixWorld();
+        scene.add(spotLight);
 
-      const spotLightTwo = new SpotLight(0xffffff);
-      spotLightTwo.copy(spotLight);
-      spotLightTwo.position.set(1.75, 2.85, -1);
-      spotLightTwo.target.position.set(-5, 0.25, -0.35);
-      spotLightTwo.target.updateMatrixWorld();
-      scene.add(spotLightTwo);
+        const spotLightTwo = new SpotLight(0xffffff);
+        spotLightTwo.copy(spotLight);
+        spotLightTwo.position.set(1.75, 2.85, -1);
+        spotLightTwo.target.position.set(-5, 0.25, -0.35);
+        spotLightTwo.target.updateMatrixWorld();
+        scene.add(spotLightTwo);
 
-      const spotLightThree = new SpotLight(0xffffff);
-      spotLightThree.copy(spotLight);
-      spotLightThree.position.set(1.75, 2.85, -1);
-      spotLightThree.target.position.set(2, 3, -2.5);
-      spotLightThree.target.updateMatrixWorld();
-      scene.add(spotLightThree);
+        const spotLightThree = new SpotLight(0xffffff);
+        spotLightThree.copy(spotLight);
+        spotLightThree.position.set(1.75, 2.85, -1);
+        spotLightThree.target.position.set(2, 3, -2.5);
+        spotLightThree.target.updateMatrixWorld();
+        scene.add(spotLightThree);
 
-      const ambientLight = new AmbientLight(new Color(0xffe889));
-      ambientLight.intensity = 0.75;
-      scene.add(ambientLight);
+        const ambientLight = new AmbientLight(new Color(0xffe889));
+        ambientLight.intensity = 0.75;
+        scene.add(ambientLight);
 
-      const directionalLight = new DirectionalLight(new Color(0xffe889));
-      directionalLight.position.set(2, 3.75, -1);
-      directionalLight.intensity = 0.85;
-      scene.add(directionalLight);
+        const directionalLight = new DirectionalLight(new Color(0xffe889));
+        directionalLight.position.set(2, 3.75, -1);
+        directionalLight.intensity = 0.85;
+        scene.add(directionalLight);
 
-      onLoaded(FILL_VARIANTS.black);
-      animate();
-      setControlsEnabled(false);
+        onLoaded(FILL_VARIANTS.black);
+        animate();
+        setControlsEnabled(false);
+      } catch (error) {
+        onError(errorMessagesByType.unhandledException);
+      }
     }, undefined, () => onError(errorMessagesByType.unhandledException));
   }, [gltfLoader, dracoLoader, controls]);
 

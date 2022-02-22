@@ -1,5 +1,6 @@
 import styled, { keyframes } from 'styled-components';
 
+import { Button } from 'src/components/Button';
 import { breakpointRules } from 'src/constants/breakpoints';
 import {
   defaultPadding, ivoryBlackColour, whiteColour,
@@ -23,10 +24,14 @@ const ContentSlideInAnimation = keyframes`
 `;
 
 export const ContentWrapperStyled = styled.section`
+  pointer-events: ${({ loaded }) => (loaded ? 'all' : 'none')};
   height: ${({ height }) => height}px;
   width: ${({ width }) => width}px;
   position: relative;
   overflow-y: hidden;
+  opacity: ${({ loaded }) => (loaded ? 1 : 0)};
+  will-change: opacity;
+  transition: opacity .25s ease-in;
 `;
 
 export const Canvas = styled.canvas`
@@ -43,7 +48,7 @@ export const ContentContainer = styled.div`
   padding-top: ${({ headingHeight, innerHeight }) => `calc(${innerHeight}px - ${headingHeight}px)`};
   overflow-y: auto;
 
-  @media screen and (min-width: ${breakpointRules.tablet}px) {
+  @media screen and (min-width: ${breakpointRules.laptop}px) {
     padding-bottom: ${defaultPadding};
   }
 `;
@@ -62,13 +67,13 @@ export const Content = styled.section`
   border-top-right-radius: .75rem;
   border-top-left-radius: .75rem;
 
-  @media screen and (min-width: ${breakpointRules.tablet}px) {
+  @media screen and (min-width: ${breakpointRules.laptop}px) {
     border-bottom-left-radius: .75rem;
     border-bottom-right-radius: .75rem;
     width: 50%;
   }
 
-  @media screen and (min-width: ${breakpointRules.laptop}px) {
+  @media screen and (min-width: ${breakpointRules.desktop}px) {
     width: 35%;
   }
 `;
@@ -84,10 +89,28 @@ export const Subtitle = styled.h5`
   opacity: .75;
 `;
 
-export const DescriptionWrapper = styled.div`
-  padding: 0 ${defaultPadding} ${defaultPadding} ${defaultPadding};
+export const BackButton = styled(Button)`
+  font-size: 1rem;
+  padding-top: .75rem;
+  padding-bottom: .75rem;
+
+  @media screen and (min-width: ${breakpointRules.tablet}px) {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+`;
+
+export const TextWrapper = styled.div`
+  margin-bottom: ${defaultPadding};
 `;
 
 export const ContentHeader = styled.div`
   padding: ${defaultPadding};
+`;
+
+export const DescriptionWrapper = styled.div`
+  padding-left: ${defaultPadding};
+  padding-right: ${defaultPadding};
+  padding-bottom: ${defaultPadding};
 `;
