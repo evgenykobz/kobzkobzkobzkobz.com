@@ -6,14 +6,6 @@ export const Title = styled.h1`
   margin-bottom: 0.5rem;
 `;
 
-export const BoldText = styled.b`
-  font-weight: 600;
-`;
-
-export const ItalicText = styled.i`
-  font-weight: 300;
-`;
-
 export const FigureWrapper = styled.figure``;
 
 export const StyledArtworkImage = styled.img`

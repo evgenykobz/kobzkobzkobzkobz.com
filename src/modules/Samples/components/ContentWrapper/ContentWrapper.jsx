@@ -2,6 +2,8 @@ import React, {
   forwardRef, useCallback, useState, useContext,
 } from 'react';
 
+import { useOutletContext } from 'react-router-dom';
+
 import { ResizeContext } from 'src/core/UserMotion/Resize/Resize.context';
 
 import {
@@ -12,9 +14,10 @@ import {
 } from './ContentWrapper.styled';
 
 export const ContentWrapper = forwardRef(({
-  title, subtitle, Description, loaded,
+  title, subtitle, Description,
 }, ref) => {
   const { height, width } = useContext(ResizeContext);
+  const { showInfo, modelLoaded } = useOutletContext();
 
   const [headingHeight, setHeadingHeight] = useState();
 
@@ -28,10 +31,10 @@ export const ContentWrapper = forwardRef(({
   }, []);
 
   return (
-    <ContentWrapperStyled loaded={loaded} height={height} width={width}>
+    <ContentWrapperStyled modelLoaded={modelLoaded} showInfo={showInfo} height={height} width={width}>
       <Canvas ref={ref} />
 
-      {loaded && (
+      {showInfo && (
         <ContentContainer headingHeight={headingHeight} innerHeight={window.innerHeight} height={height}>
           <Content>
             <ContentHeader ref={contentHeaderCallbackRef}>

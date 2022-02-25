@@ -24,12 +24,12 @@ const ContentSlideInAnimation = keyframes`
 `;
 
 export const ContentWrapperStyled = styled.section`
-  pointer-events: ${({ loaded }) => (loaded ? 'all' : 'none')};
+  pointer-events: ${({ showInfo }) => (showInfo ? 'all' : 'none')};
   height: ${({ height }) => height}px;
   width: ${({ width }) => width}px;
   position: relative;
   overflow-y: hidden;
-  opacity: ${({ loaded }) => (loaded ? 1 : 0)};
+  opacity: ${({ modelLoaded }) => (modelLoaded ? 1 : 0)};
   will-change: opacity;
   transition: opacity .25s ease-in;
 `;

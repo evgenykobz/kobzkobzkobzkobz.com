@@ -1,24 +1,36 @@
 import React, {
-  useCallback, useEffect, useState,
+  useCallback, useEffect, useRef, useState,
 } from 'react';
 
 import { useOutletContext } from 'react-router-dom';
 import {
   Scene, PerspectiveCamera, WebGLRenderer, sRGBEncoding,
-  Vector3, SpotLight, DirectionalLight, Color, Clock, AmbientLight,
+  Vector3, Color, Clock, HemisphereLight, SpotLight,
+  PCFSoftShadowMap,
 } from 'three';
 import { FirstPersonControls } from 'three/examples/jsm/controls/FirstPersonControls';
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
+import { ItalicText } from 'src/constants/';
 import { FILL_VARIANTS } from 'src/core/App/components/Header/Header.constants';
 
 import { ContentWrapper } from '../../components/ContentWrapper/ContentWrapper';
 import { errorMessagesByType } from '../../components/SampleWrapper/SampleWrapper.constants';
 import Model from './assets/model.glb';
 
-export const TracesSamplePage = () => {
-  const { onModelLoaded, onShowInfo, onError } = useOutletContext();
+const initialCameraPosition = new Vector3(-7.856, 20.828, -4.662);
+const targetCameraPosition = new Vector3(-6.516, 20.980, -4.775);
+
+const initialCameraTargetPosition = new Vector3(-37.122, 29.595, -17.050);
+const targetCameraTargetPosition = new Vector3(-8.435, 21.085, -4.843);
+
+export const StudioSamplePage = () => {
+  const {
+    onModelLoaded, onShowInfo, onError,
+  } = useOutletContext();
+
+  const cameraPositionAlphaValue = useRef(0.02);
 
   const [scene, setScene] = useState();
   const [camera, setCamera] = useState();
@@ -33,12 +45,25 @@ export const TracesSamplePage = () => {
   const animate = () => {
     requestAnimationFrame(animate);
 
-    if (renderer && controlsEnabled) {
-      renderer.render(scene, camera);
-    }
-
     if (controls) {
       controls.update(clock.getDelta());
+    }
+
+    if (camera) {
+      if (cameraPositionAlphaValue.current >= 0.5) {
+        onShowInfo(true);
+        return;
+      }
+
+      camera.position.lerp(targetCameraPosition, cameraPositionAlphaValue.current);
+      camera.lookAt(targetCameraTargetPosition, cameraPositionAlphaValue.current);
+      camera.updateProjectionMatrix();
+
+      cameraPositionAlphaValue.current += 0.02;
+    }
+
+    if (renderer && controlsEnabled) {
+      renderer.render(scene, camera);
     }
   };
 
@@ -64,15 +89,11 @@ export const TracesSamplePage = () => {
       return;
     }
 
-    camera.position.x = 0.85;
-    camera.position.y = 0.85;
-    camera.position.z = 1.65;
-
+    camera.position.copy(initialCameraPosition);
     const vector = new Vector3(0, 0, -1);
     vector.applyEuler(camera.rotation, camera.rotation.order);
     camera.getWorldDirection(vector);
-    camera.lookAt(-4.5, 3, -4);
-
+    camera.lookAt(initialCameraTargetPosition);
     camera.updateProjectionMatrix();
 
     setControls(new FirstPersonControls(camera, renderer.domElement));
@@ -83,10 +104,10 @@ export const TracesSamplePage = () => {
       return;
     }
 
-    controls.lookVertical = false;
-    controls.enabled = false;
-    controls.lookSpeed = 0.1;
-    controls.movementSpeed = 0.5;
+    controls.lookVertical = true;
+    controls.enabled = true;
+    controls.lookSpeed = 0.2;
+    controls.movementSpeed = 2;
   }, [controls]);
 
   useEffect(() => {
@@ -105,7 +126,9 @@ export const TracesSamplePage = () => {
 
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(window.devicePixelRatio);
-    renderer.setClearColor(0xEEEEEE);
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = PCFSoftShadowMap;
+    renderer.setClearColor(new Color(0x76d5fc));
     renderer.outputEncoding = sRGBEncoding;
   }, [renderer]);
 
@@ -132,46 +155,30 @@ export const TracesSamplePage = () => {
     gltfLoader.load(Model, (instance) => {
       try {
         const model = instance.scene;
+        model.traverse((node) => {
+          if (node.isMesh) {
+            node.castShadow = true;
+            node.receiveShadow = true;
+          }
+        });
         model.position.set(0, 0, 0);
         model.scale.set(1, 1, 1);
         scene.add(model);
 
-        const spotLight = new SpotLight(0xffffff);
-        spotLight.distance = 5;
-        spotLight.intensity = 0.7;
-        spotLight.angle = 0.15;
-        spotLight.penumbra = 0.25;
-        spotLight.decay = 1;
-        spotLight.position.set(1.75, 2.85, 0.75);
-        spotLight.target.position.set(-5, 1, 0);
+        const spotLight = new SpotLight(new Color(0xffffff));
+        spotLight.position.set(-13.026, 22.875, -2.443);
+        spotLight.shadow.mapSize.width = 2048 * 2;
+        spotLight.shadow.mapSize.height = 2048 * 2;
+        spotLight.target.position.set(-11.218, 22.176, -4.372);
         spotLight.target.updateMatrixWorld();
+        spotLight.intensity = 5;
+        spotLight.castShadow = true;
         scene.add(spotLight);
 
-        const spotLightTwo = new SpotLight(0xffffff);
-        spotLightTwo.copy(spotLight);
-        spotLightTwo.position.set(1.75, 2.85, -1);
-        spotLightTwo.target.position.set(-5, 0.25, -0.35);
-        spotLightTwo.target.updateMatrixWorld();
-        scene.add(spotLightTwo);
+        const hemisphereLight = new HemisphereLight(new Color(0xB1E1FF), new Color(0xffffff), 0.5);
+        scene.add(hemisphereLight);
 
-        const spotLightThree = new SpotLight(0xffffff);
-        spotLightThree.copy(spotLight);
-        spotLightThree.position.set(1.75, 2.85, -1);
-        spotLightThree.target.position.set(2, 3, -2.5);
-        spotLightThree.target.updateMatrixWorld();
-        scene.add(spotLightThree);
-
-        const ambientLight = new AmbientLight(new Color(0xffe889));
-        ambientLight.intensity = 0.75;
-        scene.add(ambientLight);
-
-        const directionalLight = new DirectionalLight(new Color(0xffe889));
-        directionalLight.position.set(2, 3.75, -1);
-        directionalLight.intensity = 0.85;
-        scene.add(directionalLight);
-
-        onModelLoaded(FILL_VARIANTS.black);
-        onShowInfo(true);
+        onModelLoaded(FILL_VARIANTS.white);
         animate();
         setControlsEnabled(false);
       } catch (error) {
@@ -224,14 +231,21 @@ export const TracesSamplePage = () => {
   return (
     <ContentWrapper
       ref={canvasCallbackRef}
-      title="traces"
-      subtitle="ek2108s1"
+      title="studio"
+      subtitle="ek2111s2"
       Description={(
         <>
-          There is a street that I revisit when I go out on a casual walk.&nbsp;
-          Every time I stumble upon it I sense as if I see people, cars and birds following that same route everyday.&nbsp;
-          Routes that we all take act as effects of our presence; and so this trace-making activity is nothing but a form of carefulness about what other things exist around us.&nbsp;
-          In this sample I reconstructed the realm where each human is just a trace triggering or, so to speak, revealing another form of vital.
+          My lovely studio &#8212; located on the third floor of a historical building just minutes of walk from the city centre.&nbsp;
+          Despite the fact that studio space nowadays is considered a
+          &nbsp;
+          <ItalicText>chose démodé</ItalicText>
+          ,
+          &nbsp;
+          <ItalicText>bobo</ItalicText>
+          &nbsp;
+          kind of thing, I believe I could not make it as an artist without a space where I can a) experiment without my landlord bitting the sh-t out of me and b) change the perspective and concentrate.&nbsp;
+          However, as the time flies, many things are going to change as well as my relations with this place, I guess.&nbsp;
+          So for now I would like to save it the way it usually feels on a sunny day: spirited, vibrant and inviting to work.
         </>
       )}
     />

@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
 
 import { breakpointRules } from './breakpoints';
 
@@ -44,4 +44,12 @@ export const GlobalStyle = createGlobalStyle`
       font-size: 2rem;
     }
   }
+`;
+
+export const BoldText = styled.b`
+  font-weight: 600;
+`;
+
+export const ItalicText = styled.i`
+  font-weight: 300;
 `;

@@ -1,8 +1,10 @@
 import React from 'react';
 
+import { BoldText, ItalicText } from 'src/constants/';
+
 import { CollapsedText } from './components';
 import {
-  BoldText, ItalicText, StyledArtworkImage, FigureWrapper, PaddedFigureCaption,
+  StyledArtworkImage, FigureWrapper, PaddedFigureCaption,
   TextWrapper, StyledProcessImage, LeftSidedFigure, RightSidedFigure, FigureCaption,
   StyledObjectImage, StyledSignature, Title,
 } from './FirstDayInGhostValleyPage.styled';

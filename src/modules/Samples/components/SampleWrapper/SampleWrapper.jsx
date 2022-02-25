@@ -22,10 +22,11 @@ export const SampleWrapper = () => {
   const { setBlockScreen, blockScreen } = useContext(ThemeContext);
 
   const [loading, setLoading] = useState(true);
+  const [showInfo, setShowInfo] = useState(false);
   const [error, setError] = useState();
 
   // If a scene is successfully loaded, we need to set logo and remove block screen setting
-  const handleOnLoaded = (logoVariant = FILL_VARIANTS.default) => {
+  const handleModelLoaded = (logoVariant = FILL_VARIANTS.default) => {
     setLoading(false);
     setVariant(logoVariant);
     setMini(true);
@@ -78,8 +79,10 @@ export const SampleWrapper = () => {
       )}
 
       <Outlet context={{
-        loaded: !loading && !error,
-        onLoaded: handleOnLoaded,
+        modelLoaded: !loading && !error,
+        showInfo,
+        onShowInfo: setShowInfo,
+        onModelLoaded: handleModelLoaded,
         onError: handleOnError,
       }}
       />
