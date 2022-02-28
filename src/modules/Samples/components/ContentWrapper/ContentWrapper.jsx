@@ -9,7 +9,7 @@ import { ResizeContext } from 'src/core/UserMotion/Resize/Resize.context';
 import {
   Canvas, Content, Title, Subtitle,
   DescriptionWrapper, ContentContainer,
-  ContentWrapperStyled, ContentHeader, BackButton,
+  ContentWrapperStyled, ContentHeader,
   TextWrapper,
 } from './ContentWrapper.styled';
 
@@ -53,10 +53,6 @@ export const ContentWrapper = forwardRef(({
               <TextWrapper>
                 {Description}
               </TextWrapper>
-
-              <BackButton to="../">
-                Get back
-              </BackButton>
             </DescriptionWrapper>
           </Content>
         </ContentContainer>

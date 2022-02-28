@@ -2,7 +2,7 @@ import React, {
   useContext, useEffect, useState,
 } from 'react';
 
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import { ThemeContext } from 'styled-components';
 import WebGL from 'three/examples/jsm/capabilities/WebGL';
 
@@ -15,9 +15,9 @@ import {
   Loader, ErrorWrapper, ErrorText,
 } from './SampleWrapper.styled';
 
-// TODO:
-// 1. Smooth transition
 export const SampleWrapper = () => {
+  const { pathname } = useLocation();
+
   const { setVariant, setMini } = useContext(HeaderContext);
   const { setBlockScreen, blockScreen } = useContext(ThemeContext);
 
@@ -49,8 +49,10 @@ export const SampleWrapper = () => {
     return () => {
       setVariant(FILL_VARIANTS.default);
       setMini(false);
+      setLoading(true);
+      setShowInfo(false);
     };
-  }, []);
+  }, [pathname]);
 
   useEffect(() => {
     setBlockScreen(true);
