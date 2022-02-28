@@ -9,6 +9,11 @@ import {
   StoriesWrapperStyled, CloseButton, LeftNavButton, RightNavButton, CloseIcon,
 } from './StoriesWrapper.styled';
 
+/**
+ * @function StoriesWrapper
+ * Component organizes routes in a way so
+ * they start to look like Snapchat "Stories"
+ */
 export const StoriesWrapper = ({ routesConfig }) => {
   const navigate = useNavigate();
   const params = useParams();

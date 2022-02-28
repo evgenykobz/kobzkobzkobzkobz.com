@@ -15,7 +15,7 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { ItalicText } from 'src/constants/';
 import { FILL_VARIANTS } from 'src/core/App/components/Header/Header.constants';
 
-import { ContentWrapper } from '../../components/ContentWrapper/ContentWrapper';
+import { ContentWrapper } from '../../components';
 import { errorMessagesByType } from '../../components/SampleWrapper/SampleWrapper.constants';
 import Model from './assets/model.glb';
 

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { Button } from 'src/components/Button';
+import { Button } from 'src/components';
 import { ivoryBlackColour } from 'src/constants/styles';
 
 export const OverviewStyled = styled.section`

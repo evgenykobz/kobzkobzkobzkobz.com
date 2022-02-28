@@ -6,15 +6,20 @@ import { Outlet, useLocation } from 'react-router-dom';
 import { ThemeContext } from 'styled-components';
 import WebGL from 'three/examples/jsm/capabilities/WebGL';
 
-import { Button } from 'src/components/Button';
-import { HeaderContext, FILL_VARIANTS } from 'src/core/App/components/Header';
+import { Button } from 'src/components';
+import { HeaderContext, FILL_VARIANTS } from 'src/core/App/components';
 
-import { LogoLoader } from '../LogoLoader';
+import { LogoLoader } from './components';
 import { errorMessagesByType } from './SampleWrapper.constants';
 import {
   Loader, ErrorWrapper, ErrorText,
 } from './SampleWrapper.styled';
 
+/**
+ * @function SampleWrapper
+ * Component renders Nested Routes and
+ * provides state for them via Outlet Context
+ */
 export const SampleWrapper = () => {
   const { pathname } = useLocation();
 
