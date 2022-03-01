@@ -9,7 +9,7 @@ import {
 
 import { PageWrapper } from 'src/components';
 import {
-  BoardModule, MainModule, VaultModule, SamplesModule,
+  PicturesModule, MainModule, VaultModule, SamplesModule,
 } from 'src/modules';
 
 export const Router = () => (
@@ -23,7 +23,7 @@ export const Router = () => (
       </Route>
 
       <Route path="samples/*" element={<SamplesModule />} />
-      <Route path="board/*" element={<BoardModule />} />
+      <Route path="pictures/*" element={<PicturesModule />} />
       <Route path="*" element={<Navigate to="/" />} />
     </Route>
   </Routes>

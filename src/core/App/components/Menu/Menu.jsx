@@ -102,7 +102,7 @@ export const Menu = () => {
         {opened && (
           <MenuNavList buttonHeight={buttonHeight}>
             <MenuItem onClick={handleMenuItemClick} title="Samples" to="samples" />
-            <MenuItem onClick={handleMenuItemClick} title="Board" to="board" />
+            <MenuItem onClick={handleMenuItemClick} title="Pics" to="pictures" />
             <MenuItem onClick={handleMenuItemClick} title="Home" to="/" />
           </MenuNavList>
         )}

@@ -13,6 +13,11 @@ import {
   TextWrapper,
 } from './ContentWrapper.styled';
 
+/**
+ * @function ContentWrapper
+ * Component organizes markup logic and forwards
+ * Ref so it can be used by Three.js
+ */
 export const ContentWrapper = forwardRef(({
   title, subtitle, Description,
 }, ref) => {
