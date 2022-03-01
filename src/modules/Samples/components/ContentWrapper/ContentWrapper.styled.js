@@ -3,8 +3,9 @@ import styled, { keyframes } from 'styled-components';
 import { Button } from 'src/components/Button';
 import { breakpointRules } from 'src/constants/breakpoints';
 import {
-  defaultPadding, ivoryBlackColour, whiteColour,
+  defaultPadding, ivoryBlackColour, titaniumWhiteColour,
 } from 'src/constants/styles';
+import { THEME_TYPES } from 'src/core/Theme/Theme.constants';
 
 const ContentSlideInAnimation = keyframes`
   0% {
@@ -57,8 +58,7 @@ export const Content = styled.section`
   width: 100%;
   margin-right: auto;
   margin-left: auto;
-  color: ${ivoryBlackColour};
-  background-color: ${whiteColour};
+  background-color: ${({ theme: { type } }) => (type === THEME_TYPES.dark ? ivoryBlackColour : titaniumWhiteColour)};
   will-change; opacity, transform;
   animation-name: ${ContentSlideInAnimation};
   animation-duration: .35s;

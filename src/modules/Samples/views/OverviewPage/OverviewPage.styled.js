@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 import { Button } from 'src/components';
-import { ivoryBlackColour } from 'src/constants/styles';
 
 export const OverviewStyled = styled.section`
   padding-left: 2rem;
@@ -10,7 +9,6 @@ export const OverviewStyled = styled.section`
   font-size: 1.5rem;
   line-height: 2.5rem;
   text-align: center;
-  color: ${ivoryBlackColour};
 `;
 
 export const Paragraph = styled.p`

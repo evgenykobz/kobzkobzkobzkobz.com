@@ -3,6 +3,7 @@ import styled, { keyframes } from 'styled-components';
 import {
   whiteColour, defaultPadding, offwhiteBackgroundColour, ivoryBlackColour,
 } from 'src/constants';
+import { THEME_TYPES } from 'src/core/Theme/Theme.constants';
 
 import CrossIcon from './icons/cross.svg';
 import HomeIcon from './icons/home.svg';
@@ -125,4 +126,22 @@ export const MenuNavList = styled.nav`
   will-change; opacity, transform;
   animation-name: ${SlideInAnimation};
   animation-duration: ${menuTransitionTiming};
+`;
+
+export const Copyright = styled.div`
+  position: fixed;
+  bottom: ${defaultPadding};
+  left: ${defaultPadding};
+  opacity: 0.55;
+  font-weight: 600;
+  animation-name: ${FadeInAnimation};
+  animation-duration: ${menuTransitionTiming};
+`;
+
+export const GithubLink = styled.a`
+  color: ${({ theme: { type } }) => (type === THEME_TYPES.dark ? '#f28705' : whiteColour)};
+  text-transform: capitalize;
+  text-decoration: unset;
+  display: inline-block;
+  margin-right: 4px;
 `;

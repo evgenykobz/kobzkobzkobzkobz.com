@@ -1,7 +1,10 @@
 import styled from 'styled-components';
 
+import { titaniumWhiteColour } from 'src/constants/styles';
+
 export const BoardStyled = styled.div`
   scroll-snap-type: y mandatory;
+  background-color: ${titaniumWhiteColour};
   max-height: 100vh;
   overflow-x: hidden;
   position: relative;

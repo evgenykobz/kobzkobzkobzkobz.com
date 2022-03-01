@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
+import { THEME_TYPES } from 'src/core/Theme/Theme.constants';
+
 export const HeaderStyled = styled.header`
   position: fixed;
   top: 0;
@@ -13,11 +15,12 @@ export const HeaderStyled = styled.header`
 
 export const HeaderBackground = styled.div`
   will-change: opacity;
-  background: rgb(255,255,255);
-  background: linear-gradient(180deg, rgba(255,255,255,.75) 0%, rgba(255,255,255,0.15) 75%, rgba(255,255,255,0) 100%);
   width: 100%;
   height: 100%;
   position: absolute;
-`;
 
-export const ContentContainer = styled.div``;
+  ${({ theme: { type } }) => (type === THEME_TYPES.light) && `
+    background: rgb(255,255,255);
+    background: linear-gradient(180deg, rgba(255,255,255,.75) 0%, rgba(255,255,255,0.15) 75%, rgba(255,255,255,0) 100%);
+  `}
+`;

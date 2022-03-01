@@ -8,7 +8,7 @@ import { ResizeContext } from 'src/core/UserMotion';
 
 import { MenuItem } from './components';
 import {
-  MenuHomeIcon, MenuRoundButton, MenuButtonWrapper, MenuBackground, CloseButtonIcon, MenuNavList,
+  MenuHomeIcon, MenuRoundButton, MenuButtonWrapper, MenuBackground, CloseButtonIcon, MenuNavList, Copyright, GithubLink,
 } from './Menu.styled';
 
 export const Menu = () => {
@@ -105,6 +105,16 @@ export const Menu = () => {
             <MenuItem onClick={handleMenuItemClick} title="Pics" to="pictures" />
             <MenuItem onClick={handleMenuItemClick} title="Home" to="/" />
           </MenuNavList>
+        )}
+
+        {opened && (
+          <Copyright>
+            <GithubLink href="https://github.com/kobzzz/kobzkobzkobzkobz.com" target="_blank">
+              GitHub
+            </GithubLink>
+            &copy;
+            {new Date().getFullYear()}
+          </Copyright>
         )}
       </MenuButtonWrapper>
     </>

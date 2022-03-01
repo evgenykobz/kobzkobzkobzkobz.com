@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
-import { defaultPadding, ivoryBlackColour } from 'src/constants/styles';
+import { defaultPadding, ivoryBlackColour, titaniumWhiteColour } from 'src/constants/styles';
+import { THEME_TYPES } from 'src/core/Theme/Theme.constants';
 
 import { NavigationButton } from './components';
 import CrossIcon from './icons/cross.svg';
@@ -11,7 +12,7 @@ export const StoriesWrapperStyled = styled.div`
 
 export const CloseIcon = styled.div`
   cursor: pointer;
-  background-color: ${ivoryBlackColour};
+  background-color: ${({ theme: { type } }) => (type === THEME_TYPES.dark ? titaniumWhiteColour : ivoryBlackColour)};
   background-blend-mode: multiply;
   mask: url(${CrossIcon}) no-repeat center;
   width: 100%;

@@ -7,7 +7,7 @@ import {
 export const Statement = () => (
   <StatementStyled>
     <Paragraph>
-      My name is Evgeny Kobzev, I am an ICA Moscow graduate, I live in Moscow, Russia.&nbsp;
+      My name is Evgeny Kobzev, I am an ICA Moscow graduate.&nbsp;
       Working on the verge of art and tech, I am the closest to seeing the drawbacks of where the human is headed to as a species.&nbsp;
       I strive to expose concealed nature of objects, to liberate them from human&#39;s dogma.
     </Paragraph>

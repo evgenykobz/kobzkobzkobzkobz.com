@@ -1,16 +1,18 @@
 import styled from 'styled-components';
 
-import { DEFAULT_COLOR } from './Button.constants';
+import { THEME_TYPES } from 'src/core/Theme/Theme.constants';
+
+import { DARK_THEME_COLOR, DEFAULT_COLOR } from './Button.constants';
 
 export const ButtonStyled = styled.a`
   display: block;
-  background-color: ${({ color, onlyText }) => (onlyText ? 'unset' : `${color || DEFAULT_COLOR}20`)};
+  background-color: ${({ theme: { type }, color, onlyText }) => (onlyText ? 'unset' : `${color || (type === THEME_TYPES.dark ? DARK_THEME_COLOR : DEFAULT_COLOR)}20`)};
   border-radius: .75rem;
   border: unset;
   will-change: background, transform;
   transition: background, transform .2s, .2s ease-out;
   font-size: 1.25rem;
-  color: ${({ color }) => (color || DEFAULT_COLOR)};
+  color: ${({ theme: { type }, color }) => (color || (type === THEME_TYPES.dark ? DARK_THEME_COLOR : DEFAULT_COLOR))};
   padding: 1rem;
   text-align: center;
   font-weight: 600;
@@ -20,7 +22,7 @@ export const ButtonStyled = styled.a`
   text-decoration: unset;
 
   &:hover {
-    background-color: ${({ color, onlyText }) => (onlyText ? 'unset' : `${color || DEFAULT_COLOR}40`)};
+    background-color: ${({ theme: { type }, color, onlyText }) => (onlyText ? 'unset' : `${color || (type === THEME_TYPES.dark ? DARK_THEME_COLOR : DEFAULT_COLOR)}20`)};
   }
 
   &:focus, :active {
