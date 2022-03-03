@@ -3,6 +3,7 @@ import styled, { keyframes } from 'styled-components';
 import {
   whiteColour, defaultPadding, offwhiteBackgroundColour, ivoryBlackColour,
 } from 'src/constants';
+import { breakpointRules } from 'src/constants/breakpoints';
 import { THEME_TYPES } from 'src/core/Theme/Theme.constants';
 
 import CrossIcon from './icons/cross.svg';
@@ -132,16 +133,36 @@ export const Copyright = styled.div`
   position: fixed;
   bottom: ${defaultPadding};
   left: ${defaultPadding};
-  opacity: 0.55;
   font-weight: 600;
-  animation-name: ${FadeInAnimation};
-  animation-duration: ${menuTransitionTiming};
 `;
 
-export const GithubLink = styled.a`
+export const CopyrightText = styled.div`
+  text-transform: capitalize;
+  opacity: 0.55;
+`;
+
+export const CopyrightSymbol = styled.div`
+  margin-left: 0.25rem;
+  margin-right: 0.25rem;
+  display: inline-block;
+`;
+
+export const ExternalLinks = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  margin-left: -0.5rem;
+  margin-right: -0.5rem;
+
+  @media screen and (min-width: ${breakpointRules.tablet}px) {
+    flex-direction: row;
+  }
+`;
+
+export const ExternalLink = styled.a`
   color: ${({ theme: { type } }) => (type === THEME_TYPES.dark ? '#f28705' : whiteColour)};
   text-transform: capitalize;
   text-decoration: unset;
-  display: inline-block;
-  margin-right: 4px;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
 `;
