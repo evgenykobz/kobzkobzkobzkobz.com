@@ -63,7 +63,7 @@ export const SampleWrapper = () => {
     setBlockScreen(true);
 
     return () => setBlockScreen(false);
-  }, [blockScreen, setBlockScreen]);
+  }, [blockScreen]);
 
   return (
     <>

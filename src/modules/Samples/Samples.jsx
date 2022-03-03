@@ -7,7 +7,9 @@ import {
 import { PageWrapper, StoriesWrapper } from 'src/components';
 
 import { SampleWrapper } from './components';
-import { OverviewPage, TracesSamplePage, StudioSamplePage } from './views';
+import {
+  OverviewPage, TracesSamplePage, StudioSamplePage, AfternoonBeamsSamplePage,
+} from './views';
 
 export const SamplesModule = () => (
   <Routes>
@@ -25,6 +27,9 @@ export const SamplesModule = () => (
           }, {
             path: 'EK2111S2',
             element: <StudioSamplePage />,
+          }, {
+            path: 'EK2201S3',
+            element: <AfternoonBeamsSamplePage />,
           }]}
           />
         )}

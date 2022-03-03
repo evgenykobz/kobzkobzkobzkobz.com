@@ -19,7 +19,7 @@ import {
  * Ref so it can be used by Three.js
  */
 export const ContentWrapper = forwardRef(({
-  title, subtitle, Description,
+  title, subtitle, Description, canvasStyle,
 }, ref) => {
   const { height, width } = useContext(ResizeContext);
   const { showInfo, modelLoaded } = useOutletContext();
@@ -37,7 +37,7 @@ export const ContentWrapper = forwardRef(({
 
   return (
     <ContentWrapperStyled modelLoaded={modelLoaded} showInfo={showInfo} height={height} width={width}>
-      <Canvas ref={ref} />
+      <Canvas ref={ref} style={canvasStyle} />
 
       {showInfo && (
         <ContentContainer headingHeight={headingHeight} innerHeight={window.innerHeight} height={height}>
