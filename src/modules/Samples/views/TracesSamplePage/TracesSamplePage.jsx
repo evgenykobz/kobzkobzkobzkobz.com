@@ -1,5 +1,5 @@
 import React, {
-  useCallback, useEffect, useState,
+  useCallback, useEffect, useRef, useState,
 } from 'react';
 
 import { useOutletContext } from 'react-router-dom';
@@ -19,6 +19,7 @@ import Model from './assets/model.glb';
 
 export const TracesSamplePage = () => {
   const { onModelLoaded, onShowInfo, onError } = useOutletContext();
+  const requestId = useRef();
 
   const [scene, setScene] = useState();
   const [camera, setCamera] = useState();
@@ -31,7 +32,12 @@ export const TracesSamplePage = () => {
 
   // Animation function
   const animate = () => {
-    requestAnimationFrame(animate);
+    if (!controlsEnabled) {
+      return;
+    }
+
+    const requestFrameId = requestAnimationFrame(animate);
+    requestId.current = requestFrameId;
 
     if (renderer && controlsEnabled) {
       renderer.render(scene, camera);
@@ -196,6 +202,10 @@ export const TracesSamplePage = () => {
 
     if (camera) {
       camera.dispose();
+    }
+
+    if (requestId.current) {
+      cancelAnimationFrame(requestId.current);
     }
   }, []);
 

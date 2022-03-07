@@ -7,6 +7,26 @@ const webpack = require('webpack');
 
 const dev = process.env.NODE_ENV !== 'production';
 
+const plugins = [
+  new HtmlWebpackPlugin({
+    title: 'Kobz',
+    filename: 'index.html',
+    template: path.resolve('public', 'index.html'),
+  }),
+  new MiniCssExtractPlugin(),
+  new CopyWebpackPlugin({
+    patterns: [
+      path.resolve('public', 'favicons'),
+      path.resolve('public', 'site.webmanifest'),
+    ],
+  })
+];
+
+if (dev) {
+  plugins.push(new ESLintPlugin({
+    context: path.resolve('src'),
+  }));
+}
 module.exports = {
   context: path.resolve('src'),
   entry: {
@@ -85,21 +105,5 @@ module.exports = {
       },
     ],
   },
-  plugins: [
-    new HtmlWebpackPlugin({
-      title: 'Kobz',
-      filename: 'index.html',
-      template: path.resolve('public', 'index.html'),
-    }),
-    new MiniCssExtractPlugin(),
-    new ESLintPlugin({
-      context: path.resolve('src'),
-    }),
-    new CopyWebpackPlugin({
-      patterns: [
-        path.resolve('public', 'favicons'),
-        path.resolve('public', 'site.webmanifest'),
-      ],
-    })
-  ],
+  plugins,
 };

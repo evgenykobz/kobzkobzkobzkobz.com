@@ -1,15 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 
 import { ThemeProvider as StyledThemeProvider } from 'styled-components';
 
 import { THEME_CONTEXT_DEFAULT_VALUE, THEME_TYPES } from './Theme.constants';
 
 export const ThemeProvider = ({ children }) => {
-  const [themeContext, setThemeContext] = useState(THEME_CONTEXT_DEFAULT_VALUE);
+  const [type, setType] = useState(THEME_CONTEXT_DEFAULT_VALUE.type);
+  const [blockScreen, setBlockScreen] = useState(THEME_CONTEXT_DEFAULT_VALUE.blockScreen);
 
-  const setBlockScreen = (blockScreen) => setThemeContext({ ...themeContext, blockScreen });
-
-  const setThemeType = (type) => setThemeContext({ ...themeContext, type });
+  const themeContext = useMemo(() => ({
+    type,
+    blockScreen,
+    setBlockScreen,
+  }), [type, blockScreen, setBlockScreen]);
 
   useEffect(() => {
     if (!window.matchMedia) {
@@ -18,7 +21,7 @@ export const ThemeProvider = ({ children }) => {
 
     const mediaMatch = window.matchMedia('(prefers-color-scheme: dark)');
 
-    const handleMediaChange = ({ matches }) => (matches ? setThemeType(THEME_TYPES.dark) : setThemeType(THEME_TYPES.white));
+    const handleMediaChange = ({ matches }) => (matches ? setType(THEME_TYPES.dark) : setType(THEME_TYPES.white));
 
     handleMediaChange(mediaMatch);
 
@@ -27,5 +30,5 @@ export const ThemeProvider = ({ children }) => {
     return () => mediaMatch.removeEventListener('change', handleMediaChange);
   }, []);
 
-  return <StyledThemeProvider theme={{ ...themeContext, setBlockScreen }}>{children}</StyledThemeProvider>;
+  return <StyledThemeProvider theme={themeContext}>{children}</StyledThemeProvider>;
 };

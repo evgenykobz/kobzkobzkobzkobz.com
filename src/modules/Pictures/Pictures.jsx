@@ -14,7 +14,9 @@ import { BoardStyled } from './Pictures.styled';
 
 export const PicturesModule = () => {
   const { entries } = useContext(IntersectionContext);
-  const { variant, setVariant, mini, setMini } = useContext(HeaderContext);
+  const {
+    variant, setVariant, mini, setMini,
+  } = useContext(HeaderContext);
   const { setBlockScreen, blockScreen } = useContext(ThemeContext);
 
   // (may be deleted later) We set a black variant of the Header
@@ -26,7 +28,7 @@ export const PicturesModule = () => {
     return () => {
       setVariant(FILL_VARIANTS.default);
       setMini(false);
-    }
+    };
   }, [variant, mini]);
 
   // We set Body element to a blocked state so we can be sure
@@ -65,7 +67,6 @@ export const PicturesModule = () => {
     return targetEntry;
   }, [entries]);
 
-  console.log('activePictureFrame: ', activePictureFrame);
   return (
     <BoardStyled>
       {picturesList.map(({ caption, Frame }) => (

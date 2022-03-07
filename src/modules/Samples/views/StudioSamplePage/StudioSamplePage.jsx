@@ -29,6 +29,7 @@ export const StudioSamplePage = () => {
   const {
     onModelLoaded, onShowInfo, onError,
   } = useOutletContext();
+  const requestId = useRef();
 
   const cameraPositionAlphaValue = useRef(0.02);
 
@@ -43,7 +44,12 @@ export const StudioSamplePage = () => {
 
   // Animation function
   const animate = () => {
-    requestAnimationFrame(animate);
+    if (!controlsEnabled) {
+      return;
+    }
+
+    const requestFrameId = requestAnimationFrame(animate);
+    requestId.current = requestFrameId;
 
     if (controls) {
       controls.update(clock.getDelta());
@@ -203,6 +209,10 @@ export const StudioSamplePage = () => {
 
     if (camera) {
       camera.dispose();
+    }
+
+    if (requestId.current) {
+      cancelAnimationFrame(requestId.current);
     }
   }, []);
 

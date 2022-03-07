@@ -19,7 +19,7 @@ export const HeaderBackground = styled.div`
   height: 100%;
   position: absolute;
 
-  ${({ theme: { type } }) => (type === THEME_TYPES.light) && `
+  ${({ theme: { type } }) => (type === THEME_TYPES.white) && `
     background: rgb(255,255,255);
     background: linear-gradient(180deg, rgba(255,255,255,.75) 0%, rgba(255,255,255,0.15) 75%, rgba(255,255,255,0) 100%);
   `}
